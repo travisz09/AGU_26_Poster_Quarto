@@ -51,7 +51,7 @@ jupyter: python3
 ---
 
 ## Introduction
-lorem ipsum dolor sit amet consectetur adipiscing elit id maxime exercitation commodo dolore sint fugiat cumque dolorem placeat quo est quis id placeat ut eos do omnis culpa nulla ullamco laborum corrupti dolor molestias ea ipsum minim cupiditate quibusdam corrupti vel imperdiet placeat dolorem tempor cum et ut omnis laborum
+Around the world, glaciers are in decline [@Dyurgerov_Meier_2004]. With more than 20,000 mountain glaciers, in addition to the ice sheet, Greenland is one of the most important glaciated regions in the world. @Farinotti_Huss_Fürst_Landmann_Machguth_Maussion_Pandit_2019 estimate the total potential sea level rise contribution of Greenland at over 7m, and mass loss from mountain glaciers is currently the most significant contribution to global sea level rise [@Jacob_Wahr_Pfeffer_Swenson_2012].
 
 ## Data & Methods {#sec-data-methods}
 lorem ipsum dolor sit amet consectetur adipiscing elit id maxime exercitation commodo dolore sint fugiat cumque dolorem placeat quo est quis id placeat ut eos do omnis culpa nulla ullamco laborum corrupti dolor molestias ea ipsum minim cupiditate quibusdam corrupti vel imperdiet placeat dolorem tempor cum et ut omnis laborum
