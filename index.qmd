@@ -56,22 +56,57 @@ acronyms:
   keys:
     - shortname: ML
       longname: Machine learning
+    - shortname: GEE
+      longname: Google Earth Engine
+    - shortname: NDSI
+      longname: Normalized Difference Snow Index
+    - shortname: NDGI
+      longname: Normalized Difference Glacier Index
+    - shortname: NDWI
+      longname: Normalized Difference Water Index
+    - shortname: NSDS
+      longname: Normalized SWIR Difference Soil-moisture
+    - shortname: NDVI
+      longname: Normalized Difference Vegetation Index
+    - shortname: SVM
+      longname: support vector machine
 ---
 
 ## Introduction
 Around the world, glaciers are in decline [@Dyurgerov_Meier_2004]. With more than 20,000 mountain glaciers, in addition to the ice sheet, Greenland is one of the most important glaciated regions in the world. @Farinotti_Huss_2019 estimate the total potential sea level rise contribution of Greenland at over 7m, and mass loss from mountain glaciers is currently the most significant contribution to global sea level rise [@Jacob_Wahr_Pfeffer_Swenson_2012].
 
 ## Methods {#sec-methods}
-### Land Cover Classification {#sec-classifier}
-\acr{ML} classification of Landsat images was based on a modified version of methods published by @Aberle_Enderlin_2025. Initial training data (labeled points and images) was acquired courtesy of Aberle et al. for 4 USGS Benchmark glaciers (Gulkana, South Cascade, Sperry, and Wolverine) across a total of 7 Landsat images (two images each for Gulkana, South Cascade, and Sperry glaciers), for a total of 8,162 training points. These labeled training points were augmented with an additional 2,650 training points within Greenland, for a combined total of 10,812 training points. For Greenland training data, two locations were chosen, Mittivakkat glacier in south-east Greenland, and a heavily glaciated rocky peninsula in west-central Greenland (located at 72°N, 54°W). Additionally, the “cloud” class was added to the list of 5 landcover types from Aberle et al., bringing the total number of land cover classifications to 6, “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and “water”. 
+### Model Training and Validation {#sec-classifier}
+\acr{ML} classification of Landsat images was based on a modified version of methods published by @Aberle_Enderlin_2025. Initial training data (labeled points and images) was acquired courtesy of Aberle et al. for 4 USGS Benchmark glaciers (Gulkana, South Cascade, Sperry, and Wolverine) across 7 Landsat images, for a total of 8,162 training points. These labeled training points were augmented with an additional 2,650 training points within Greenland, for a combined total of 10,812 training points. For Greenland training data, two locations were chosen, Mittivakkat glacier in south-east Greenland, and a heavily glaciated rocky peninsula in west-central Greenland (72°N, 54°W; north of Disko Island). Additionally, the “cloud” class was added to the list of 5 landcover types from @Aberle_Enderlin_2025, bringing the total number of land cover classifications to 6, “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and “water”. 
 
-Surface reflectance Landsat 8 & 9 images were acquired for each of these training locations/dates via Google Earth Engine (GEE). Where multiple Landsat images overlapped within a 1-hour window for a single glacier (i.e. successive Landsat rows), images were merged using a median pixel value, as described by @Aberle_Enderlin_2025. For each training image five spectral indices were calculated to aid in image classification. These indices are Normalized Difference Snow Index (NDSI), Normalized Difference Glacier Index (NDGI), Normalized Difference Water Index (NDWI), Normalized SWIR Difference Soil-moisture (NSDS), and Normalized Difference Vegetation Index (NDVI). Each of these indices was tested individually and in combination with the other bands/indices and was found to aid separation of one or more of the landcover classes of interest. Surface reflectance, surface temperature, and all 5 spectral indices data were extracted from pixel data at each of the labeled training data points for both Alaska and Greenland ([Figures -@fig-fingerprint-SR; -@fig-fingerprint-indeices]). 
+Surface reflectance Landsat 8 & 9 images were acquired for each of these training locations/dates via \acr{GEE}. Where multiple Landsat images overlapped within a 1-hour window for a single glacier (i.e. successive Landsat rows), images were merged using a median pixel value, as described by @Aberle_Enderlin_2025. For each training image five spectral indices were calculated to aid in image classification; \acr{NDSI}, \acr{NDGI}, \acr{NDWI}, \acr{NSDS}, and \acr{NDVI}. Each of these indices was tested individually and in combination with the other bands/indices and was found to aid separation of one or more of the landcover classes of interest. Surface reflectance, surface temperature, and all 5 spectral indices data were extracted from pixel data at each of the labeled training data points for both Alaska and Greenland ([Figures -@fig-fingerprint-SR; -@fig-fingerprint-indeices]). 
 
 ![The spectral fingerprint of surface reflectance and surface temperature for Landsat 8/9 images across 6 surface cover classes "cloud", "ice/firn", "rock", "shadowed snow", "snow", and "water".](images/SpectralFingerprint_SR_ST.png){#fig-fingerprint-SR fig-alt="Spectral fingerprint boxplot"}
 
 ![The spectral fingerprint of five calculated indices, Normalized Difference Snow Index (NDSI), Normalized Difference Glacier Index (NDGI), Normalized Difference Water Index (NDWI), Normalized SWIR Difference Soil-moisture (NSDS), and Normalized Difference Vegetation Index (NDVI) from Landsat 8/9 images across 6 surface cover classes "cloud", "ice/firn", "rock", "shadowed snow", "snow", and "water".](images/SpectralFingerprint_Indicies.png){#fig-fingerprint-indeices fig-alt="Spectral fingerprint boxplot"}
 
-For model training and testing a K-folds repeated cross-validation method was utilized with 10 folds, 10 repeats, and a partition (p) = 0.9 resulting in a 90/10 training/testing split, where all labeled data points are utilized in testing for exactly 1 of 10 folds/repeats. Using this training/testing framework a total of 129 distinct \acr{ML} models were tested, across 10 model types, using a hyper-parameter grid search performed in R utilizing the caret package [@Kuhn_Max_2008]. Based on the accuracy results of this training/testing model optimization process, the three best performing models were selected for additional model validation using previously unseen, spatially-temporally distant validation data. The top three, best performing models were, random forest, support vector machine (SVM) using a linear kernel, and SVM with a radial kernel.
+For model training and testing a K-folds repeated cross-validation method was utilized with 10 folds, 10 repeats, and a partition (p) = 0.9 resulting in a 90/10 training/testing split, where all labeled data points are utilized in testing for exactly 1 of 10 folds/repeats. Using this training/testing framework a total of 129 distinct \acr{ML} models were tested, across 10 model types, using a hyper-parameter grid search performed in R utilizing the caret package [@Kuhn_Max_2008]. Based on the accuracy results of this training/testing model optimization process, the three best performing models were selected for additional model validation using previously unseen, spatially-temporally distant validation data. The top three, best performing models were, random forest, \acr{SVM} using a linear kernel, and \acr{SVM} with a radial kernel @tbl-hyperparams.
+
+| Model | Parameters | Testing Accuracy (k-folds) |
+| :---- | :--------- | :------------------------: |
+| Random Forest | mtry = 6 | 0.98 |
+| Support Vector Machine | radial kernel; sigma = 1 and C = 8 | 0.98 |
+| Support Vector Machine | linear kernel; C = 8 | 0.97 |
+
+: The hyperparameters and testing accuracy for the three best performing machine learning models on k-folds training-testing data. {#tbl-hyperparams}
+
+Due to the spatial auto-correlation of the training/testing data, K-folds methods are prone to over-inflating model accuracy with geospatial datasets @citation. Therefore, it is best practice to validate spatial ML models using an additional dataset which is spatially-temporally distant from the training/testing data and which has never been seen by the model @citation. In our study, we labeled 5,750 Greenland-specific validation points for 5 locations, across 8 Landsat images. These locations were chosen for validation to capture a range of regional variability across the island. The five validation locations are, Mittivakkat glacier (3 dates/images), central-west peninsula (2), southern tip (1), Freya glacier (central-east, 1), and far north (1). (Validation point locator map figure). 
+
+![Locations of training/testing and validation datasets across Greenland. For locations with both training and validation data the validation data was at least one year temporally distant from the training data. World Glacier Monitoring Service benchmark glaciers Mittivakkat and Freya labeled.](images/Training-Testing-Locator.png){#fig-training-location fig-alt="Map of Greenland"}
+
+The three best performing \acr{ML} models were retrained using 100% of the available training data (10,812 labeled points) and were further validated on previously unseen data. The overall accuracy of all models decreased between 1-8% from their prior K-folds accuracy, but maintained a satisfactory ovrall accuracy. The best performing model on the validation data was the SVM linear model, with an overall accuracy of 93% (@fig-confusion). The F1 statistic (a measure of model performance) was 94% for snow and 91% for ice, the two most critical classes for accurate AAR calculation.
+
+![Glacier surface classification confusion matrix for the validated surface vector machine learner with linerar kernel across 6 surface cover classes, normalized as a frcation of total validation points, color coded by accuracy.](images/confusion-matrix-table.jpg){#fig-confusion fig-alg="A confusion matrix of prediction accuracy"}
+
+### Land Cover Classification
+
+Following model validation, the trained \acr{SVM} model was exported as a 
+
 
 ## References {.unnumbered}
 
