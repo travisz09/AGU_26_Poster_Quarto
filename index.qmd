@@ -96,8 +96,6 @@ acronyms:
       longname: south west
 ---
 
-![Quantifying Climate Disequilibrium and Committed Retreat of Greenland’s Peripheral Glaciers Using Landsat-Derived Accumulation Area Ratios](images/Layout_Draft.png){#fig-agu26}
-
 ## Methods {#sec-methods}
 ### Model Training and Validation {#sec-training}
 \acr{ML} classification of Landsat images was based on a modified version of methods published by @Aberle_Enderlin_2025. Initial training data (labeled points and images) was acquired courtesy of Aberle et al. for 4 USGS Benchmark glaciers (Gulkana, South Cascade, Sperry, and Wolverine) across 7 Landsat images, for a total of 8,162 training points. These labeled training points were augmented with an additional 2,650 training points within Greenland, for a combined total of 10,812 training points. For Greenland training data, two locations were chosen, Mittivakkat glacier in south-east Greenland, and a heavily glaciated rocky peninsula in west-central Greenland (72°N, 54°W; north of Disko Island). Additionally, the “cloud” class was added to the list of 5 landcover types from @Aberle_Enderlin_2025, bringing the total number of land cover classifications to 6, “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and “water”. 

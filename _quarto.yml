@@ -1,8 +1,11 @@
 project:
-  type: manuscript
+  type: website
 
 execute:
   freeze: auto
+
+website:
+  title: "AGU 2026 Poster Supplemental"
 
 format:
   html:
