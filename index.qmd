@@ -1,6 +1,6 @@
 ---
-title: Greenland's Peripheral Glacers
-subtitle: Quantifying Climate Disequilibrium and Committed Area Change
+title: Quantifying Climate Disequilibrium and Committed Retreat of Greenland’s Peripheral Glaciers Using Landsat-Derived Accumulation Area Ratios
+subtitle: AGU 2026 Poster Presentation — Supplemental
 author:
   - name: Travis Zalesky
     orcid: 0009-0006-0181-3099
@@ -70,22 +70,61 @@ acronyms:
       longname: Normalized Difference Vegetation Index
     - shortname: SVM
       longname: support vector machine
+    - shortname: USGS
+      longname: United States Geological Survey
+    - shortname: ASU
+      longname: Arizona State University
+    - shortname: Sol
+      longname: Sol super computer
+    - shortname: RGI
+      longname: Randolf Glacier Inventory
+    - shortname: AAR
+      longname: Accumulation Area Ratio
+    - shortname: NO
+      longname: north
+    - shortname: NE
+      longname: north east
+    - shortname: NW
+      longname: north west
+    - shortname: CE
+      longname: central east
+    - shortname: CW
+      longname: central west
+    - shortname: SE
+      longname: south east
+    - shortname: SW
+      longname: south west
 ---
 
-## Introduction
-Around the world, glaciers are in decline [@Dyurgerov_Meier_2004]. With more than 20,000 mountain glaciers, in addition to the ice sheet, Greenland is one of the most important glaciated regions in the world. @Farinotti_Huss_2019 estimate the total potential sea level rise contribution of Greenland at over 7m, and mass loss from mountain glaciers is currently the most significant contribution to global sea level rise [@Jacob_Wahr_Pfeffer_Swenson_2012].
+![Quantifying Climate Disequilibrium and Committed Retreat of Greenland’s Peripheral Glaciers Using Landsat-Derived Accumulation Area Ratios](images/Layout_Draft.png){#fig-agu26}
 
 ## Methods {#sec-methods}
-### Model Training and Validation {#sec-classifier}
+### Model Training and Validation {#sec-training}
 \acr{ML} classification of Landsat images was based on a modified version of methods published by @Aberle_Enderlin_2025. Initial training data (labeled points and images) was acquired courtesy of Aberle et al. for 4 USGS Benchmark glaciers (Gulkana, South Cascade, Sperry, and Wolverine) across 7 Landsat images, for a total of 8,162 training points. These labeled training points were augmented with an additional 2,650 training points within Greenland, for a combined total of 10,812 training points. For Greenland training data, two locations were chosen, Mittivakkat glacier in south-east Greenland, and a heavily glaciated rocky peninsula in west-central Greenland (72°N, 54°W; north of Disko Island). Additionally, the “cloud” class was added to the list of 5 landcover types from @Aberle_Enderlin_2025, bringing the total number of land cover classifications to 6, “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and “water”. 
 
-Surface reflectance Landsat 8 & 9 images were acquired for each of these training locations/dates via \acr{GEE}. Where multiple Landsat images overlapped within a 1-hour window for a single glacier (i.e. successive Landsat rows), images were merged using a median pixel value, as described by @Aberle_Enderlin_2025. For each training image five spectral indices were calculated to aid in image classification; \acr{NDSI}, \acr{NDGI}, \acr{NDWI}, \acr{NSDS}, and \acr{NDVI}. Each of these indices was tested individually and in combination with the other bands/indices and was found to aid separation of one or more of the landcover classes of interest. Surface reflectance, surface temperature, and all 5 spectral indices data were extracted from pixel data at each of the labeled training data points for both Alaska and Greenland ([Figures -@fig-fingerprint-SR; -@fig-fingerprint-indeices]). 
+Surface reflectance Landsat 8 & 9 images were acquired for each of these training locations/dates via \acr{GEE}. Where multiple Landsat images overlapped within a 1-hour window for a single glacier (i.e. successive Landsat rows), images were merged using a median pixel value, as described by @Aberle_Enderlin_2025. For each training image five spectral indices were calculated to aid in image classification; \acr{NDSI}, \acr{NDGI}, \acr{NDWI}, \acr{NSDS}, and \acr{NDVI} (Equations -@eq-ndsi to -@eq-ndvi). Each of these indices was tested individually and in combination with the other bands/indices and was found to aid separation of one or more of the landcover classes of interest. Surface reflectance, surface temperature, and all 5 spectral indices data were extracted from pixel data at each of the labeled training data points (Figures -@fig-fingerprint-SR & -@fig-fingerprint-indeices). 
+
+$$
+  NDSI = \frac{green - SWIR_1}{green + SWIR_1} = \frac{SR\_B3 - SR\_B6}{SR\_B3 + SR\_B6}
+$${#eq-ndsi}
+$$
+  NDGI = \frac{green - red}{green + red} = \frac{SR\_B3 - SR\_B4}{SR\_B3 + SR\_B4}
+$${#eq-ndgi}
+$$
+  NDWI = \frac{green - NIR}{green + NIR} = \frac{SR\_B3 - SR\_B5}{SR\_B3 + SR\_B5}
+$${#eq-ndwi}
+$$
+  NSDS = \frac{SWIR_1 - SWIR_2}{SWIR_1 + SWIR_2} = \frac{SR\_B6 - SR\_B7}{SR\_B6 + SR\_B7}
+$${#eq-nsds}
+$$
+  NDVI = \frac{NIR - red}{NIR + red} = \frac{SR\_B5 - SR\_B4}{SR\_B5 + SR\_B4}
+$${#eq-ndvi}
 
 ![The spectral fingerprint of surface reflectance and surface temperature for Landsat 8/9 images across 6 surface cover classes "cloud", "ice/firn", "rock", "shadowed snow", "snow", and "water".](images/SpectralFingerprint_SR_ST.png){#fig-fingerprint-SR fig-alt="Spectral fingerprint boxplot"}
 
 ![The spectral fingerprint of five calculated indices, Normalized Difference Snow Index (NDSI), Normalized Difference Glacier Index (NDGI), Normalized Difference Water Index (NDWI), Normalized SWIR Difference Soil-moisture (NSDS), and Normalized Difference Vegetation Index (NDVI) from Landsat 8/9 images across 6 surface cover classes "cloud", "ice/firn", "rock", "shadowed snow", "snow", and "water".](images/SpectralFingerprint_Indicies.png){#fig-fingerprint-indeices fig-alt="Spectral fingerprint boxplot"}
 
-For model training and testing a K-folds repeated cross-validation method was utilized with 10 folds, 10 repeats, and a partition (p) = 0.9 resulting in a 90/10 training/testing split, where all labeled data points are utilized in testing for exactly 1 of 10 folds/repeats. Using this training/testing framework a total of 129 distinct \acr{ML} models were tested, across 10 model types, using a hyper-parameter grid search performed in R utilizing the caret package [@Kuhn_Max_2008]. Based on the accuracy results of this training/testing model optimization process, the three best performing models were selected for additional model validation using previously unseen, spatially-temporally distant validation data. The top three, best performing models were, random forest, \acr{SVM} using a linear kernel, and \acr{SVM} with a radial kernel @tbl-hyperparams.
+For model training and testing a K-folds repeated cross-validation method was utilized with 10 folds, 10 repeats, and a partition (p) = 0.9 resulting in a 90/10 training/testing split, where all labeled data points are utilized in testing for exactly 1 of 10 folds/repeats. Using this training/testing framework a total of 129 distinct \acr{ML} models were tested, across 10 model types, using a hyper-parameter grid search performed in R utilizing the caret package [@Kuhn_2008]. Based on the accuracy results of this training/testing model optimization process, the three best performing models were selected for additional model validation using previously unseen, spatially-temporally distant validation data. The top three, best performing models were, random forest, \acr{SVM} using a linear kernel, and \acr{SVM} with a radial kernel @tbl-hyperparams.
 
 | Model | Parameters | Testing Accuracy (k-folds) |
 | :---- | :--------- | :------------------------: |
@@ -95,18 +134,97 @@ For model training and testing a K-folds repeated cross-validation method was ut
 
 : The hyperparameters and testing accuracy for the three best performing machine learning models on k-folds training-testing data. {#tbl-hyperparams}
 
-Due to the spatial auto-correlation of the training/testing data, K-folds methods are prone to over-inflating model accuracy with geospatial datasets @citation. Therefore, it is best practice to validate spatial ML models using an additional dataset which is spatially-temporally distant from the training/testing data and which has never been seen by the model @citation. In our study, we labeled 5,750 Greenland-specific validation points for 5 locations, across 8 Landsat images. These locations were chosen for validation to capture a range of regional variability across the island. The five validation locations are, Mittivakkat glacier (3 dates/images), central-west peninsula (2), southern tip (1), Freya glacier (central-east, 1), and far north (1). (Validation point locator map figure). 
+Due to the spatial auto-correlation of the training/testing data, K-folds methods are prone to over-inflating model accuracy with geospatial datasets. Therefore, it is best practice to validate spatial ML models using an additional dataset which is spatially-temporally distant from the training/testing data and which has never been seen by the model. In our study, we labeled 5,750 Greenland-specific validation points for 5 locations, across 8 Landsat images. These locations were chosen for validation to capture a range of regional variability across the island. The five validation locations are, Mittivakkat glacier (3 dates/images), central-west peninsula (2), southern tip (1), Freya glacier (central-east, 1), and far north (1). (Validation point locator map figure). 
 
 ![Locations of training/testing and validation datasets across Greenland. For locations with both training and validation data the validation data was at least one year temporally distant from the training data. World Glacier Monitoring Service benchmark glaciers Mittivakkat and Freya labeled.](images/Training-Testing-Locator.png){#fig-training-location fig-alt="Map of Greenland"}
 
-The three best performing \acr{ML} models were retrained using 100% of the available training data (10,812 labeled points) and were further validated on previously unseen data. The overall accuracy of all models decreased between 1-8% from their prior K-folds accuracy, but maintained a satisfactory ovrall accuracy. The best performing model on the validation data was the SVM linear model, with an overall accuracy of 93% (@fig-confusion). The F1 statistic (a measure of model performance) was 94% for snow and 91% for ice, the two most critical classes for accurate AAR calculation.
+The three best performing \acr{ML} models were retrained using 100% of the available training data (10,812 labeled points) and were further validated on previously unseen data. The overall accuracy of all models decreased between 1-8% from their prior K-folds accuracy, but maintained a satisfactory ovrall accuracy. The best performing model on the validation data was the SVM linear model, with an overall accuracy of 93% (@fig-confusion). The F1 statistic (a measure of model performance) was 94% for snow and 91% for ice, the two most critical classes for accurate \acr{AAR} calculation.
 
 ![Glacier surface classification confusion matrix for the validated surface vector machine learner with linerar kernel across 6 surface cover classes, normalized as a frcation of total validation points, color coded by accuracy.](images/confusion-matrix-table.jpg){#fig-confusion fig-alg="A confusion matrix of prediction accuracy"}
 
-### Land Cover Classification
+### Land Cover Classification {#sec-lcc}
+#### Data Acquisition {#sec-lcc-data}
+Following model validation, all applicable Landsat 8 & 9 Collection 2 Level-2, Tier 1 surface reflectance Science Products images from 2015-2025 during the ablation season (JJAS) which contained at least one peripheral glacier were downloaded using either \acr{GEE} geedim python package or the \acr{USGS} EarthExplorer data portal. Images taken on ascending orbits, and images which only covered the Greenland ice sheet but did not contain any peripheral glaciers were excluded. In total, 20,562 unique images were downloaded (~17 TB).
 
-Following model validation, the trained \acr{SVM} model was exported as a 
+#### Image Preprocessing and Classification {#sec-classification}
+Landsat images and the pretrained \acr{SVM} model were uploaded to the \acr{ASU} \acr{Sol} for processing [@HPC_2023]. Raw Landsat images were initially converted to surface reflectance and surface temperature data using established scaling factors for the OLI and TIRS instruments respectively. Images were then masked to peripheral glaciers using a buffered version of the \acr{RGI} glacier outlines [@RGI_2023]. A secondary cloud mask was applied based on a modified version of the Antarctic cloud mask developed by @Moussavi_2020. After masking, the five indices were calculated as with the training dataset. 
 
+Preprocessed images were classified according to the pretrained \acr{SVM} (linear) model. For each classified image, glaciers with at least 70% classification coverage were identified by a spatial query with the image extent. For each of the glaciers identified the surface area for each landcover class was extracted from the classified image along with relevant image metadata. For each glacier observation the transient \acr{AAR} was calculated according to equations -@eq-snow-area to -@eq-trans-aar. Each glacier observation and associated calculations was appended to a data file, culminating in ~4.6 million glacier observations. This data file was downloaded for further post-processing.
+
+$$
+Total\:Snow\:Area\:(km^2) = snow + shadowed\:snow
+$$ {#eq-snow-area}
+$$
+Total\:Glacier\:Area\:(km^2) = Total\:Snow\:Area + ice/firn
+$$ {#eq-glacier-area}
+$$
+Transient\:AAR = \frac{Total\:Snow\:Area}{Total\:Glacier\:Area}
+$$ {#eq-trans-aar}
+
+### Postprocessing {#sec-postprocessing}
+Glacier observation data was postprocessed in R using the data.table package for fast, efficient handling of large datasets [@R_2021; @data.table_2026]. Spatial data was handled using the sf package [@sf_2018-009]. 
+
+#### Quality Control and Data Filtering {#sec-QC}
+A variety of quality control and filtering steps were utilizedTo ensure that appropriate annual (end-of-season) \acr{AAR} values were identified from the transient \acr{AAR} dataset. First, glacier observations were filtered by their calculated glacier area. Then they were filtered by cloud cover, shadowed snow ratio, glacier size, glacier slope, and finally by date.
+
+The first observation filtering process leveraged the glacier area to identify and screen poorly classified images. The glacier area is calculated according to @eq-glacier-area, and the glacier area ratio is standardized by dividing the glacier area by its \acr{RGI} glacier extent (circa 2000). Ideally, throughout the ablation season, the glacier area ratio is expected to vary smoothly from ~1 (spring; fully snow covered) to some minimum value (late summer; exposed ice and rock near terminous), followed by a rapid rebound (end of ablation; onset of seasonal snowfall). In practice a combination of cloudy images and poor image classification can drive the glacier area ratio down. To screen these poor quality images a loess function was fit to the glacier area ratio data for each glacier-year. The residuals were calculated for each glacier observation, and observations with residuals < the 25^th^ percentile per glacier-year were filtered out (@fig-loess). 
+
+![Graphical representation of the glacier area ratio, glacier observation filtering process for Mittivakkat glacier, 2024. A loess smoothing function (black line) is fit to the dataset. Glacier observations with a model residual < the 25^th^ percentile are removed (open red circles). All other datapoints are retained (green points).](images/Mitt_2024_FAR_filter.png){#fig-loess fig-alt="Scatterplot"}
+
+Several additional simple filters were applied to the transient \acr{AAR} data according to AAR accuracy spot-checks and sensitivity analysis [@tbl-filters]. After all other filters were applied, the number of remaining quality glacier observations were counted for each glacier year. Glacier years which did not have at least 9 quality observations were removed.
+
+| Variable | Filter | Data Source/Equation |
+| :------- | :------- | :----------- |
+| cloud cover | < 80% | $\frac{cloud\:area}{RGI\:area}$ |
+| shadowed snow | < 50% | $\frac{shadowed\:snow\:area}{RGI\:area}$ |
+| glacier area | > 1 km^2^ & < 300 km^2^ | RGI |
+| slope | < 20° | RGI |
+| day of year | < 259 (~Sep. 16^th^) | Landsat image metadata |
+| n quality images | > 8 | filtered transient AAR data |
+
+: Quality control filters applied to the transient \acr{AAR} dataset. {#tbl-filters}
+
+#### Annual AAR determination {#sec-aar}
+From this filtered transient \acr{AAR} dataset, the annual (end-of-season) \acr{AAR}  was identified as the minimum remaining transient \acr{AAR} value (hereafter, AAR is synonymous with annual AAR). All late season glacier observations occurring after the \acr{AAR} date were filtered, and the number of remaining glacier observations during the abblation period were counted. If a glacier-year had at least 9 quality observations during the ablation period (@sec-observation-density), then the \acr{AAR} was considered valid, and the data was saved to a separate intermediate datafile. In total 37,036 glacier-years had quality \acr{AAR} data.
+
+#### Mean AAR {#sec-mean-aar}
+The mean \acr{AAR} ($\overline{AAR}$) was calculated as the arithmetic mean of \acr{AAR} for glaciers which had at least 5 years of quality data. $\overline{AAR}$ was saved to a separate datafile with 3,679 glaciers.
+
+### Glacier-Year Observation Density Sensitivity Analysis {#sec-observation-density}
+To quantify the number of quality images needed for accurate identification of the \acr{AAR}, an observational density experiment was performed. Twenty-one well-observed glacier-years were identified, evenly distributed around Greenland, each with at least 30 quality glacier observations (post filtering). For each glacier a series of subseting experiments was performed where n randomly selected points were subset from the glacier-year data. Using the randomly subset data, the assumed \acr{AAR} was selected and compared against the actual (known) \acr{AAR} from the full dataset. The n observations tested were; 3, 5, 7, 9, 12, 15, 20, 25, 30, and each experiment was repeated 100 times, for a total of 18,900 simulations [@fig-obs-dense]. Based on the resultus of these simulations, at least 9 quality observations per year are needed to reliably identify the \acr{AAR} [@tbl-obs-dense].
+
+![Sensitivity of the AAR to the number of quality observations in the dataset. Observations are randomly subset from a selection of well observed glacier-years with at least 30 quality observations. Violin plots and jittered scatterplot with partially transparent points represent the density and variance of the experimental AAR error relative to the known value.](images/observation_density.png){#fig-obs-dense fig-alt="Violin plot with points."}
+
+| n Quality Observations | mean AAR error | median AAR error |
+| :--------------------- | -------------: | ---------------: |
+| 3 | -0.266 | -0.190 |
+| 5 | -0.188 | -0.126 |
+| 7 | -0.143 | -0.083 |
+| 9 | -0.114 | -0.045 |
+| 12 | -0.094 | -0.027 |
+| 15 | -0.067 | -0.019 |
+| 20 | -0.044 | -0.007 |
+| 25 | -0.030 | 0 |
+| 30 | -0.018 | 0 |
+
+: Mean and median AAR error rates for the observation density sensitivity analysis (2,100 simulations per subset).  {#tbl-obs-dense}
+
+### Equilibrium AAR and Committed Area Loss {#sec-aar0}
+Equilibrium AAR (AAR~0~) values were given by @Yang_Mackintosh_2026. Disequalibrium ($\alpha$) and committed area loss ($\Delta$A) were calculated according to @Box_Hubbard_2022. The $\Delta$A values varried considerably by region, with the \acr{CE}, \acr{NE}, \acr{SW} all showing positive committed area change (i.e., committed growth).  Furthermore, while the resulting $\Delta$A values are approximately centered on 0 (median = -0.26 km^2^) the distribution is not normal (@fig-delta-a-dist). Rather, the distribution is highly leptokurtic, with a slight positive skew. This indicates that, while most glaciers are near their predicted equilibrium value, the distribution is highly dominated by outliers on either side. 
+
+![The highly leptokurtic distribution of committed area change calculated using AAR~0~ values by @Yang_Mackintosh_2026](images/delta_A_dist.png){#fig-delta-a-dist fig-alt="A histogram"}
+
+#### Committed Area Loss Sensitivity Analysis {#sec-delta-a-sensitivity}
+To further investigate the $\Delta$A results we conducted a sensitivity analysis for a range of plausible AAR~0~ values, from 0.5 to 0.8, for each region individually as well as for Greenland as a whole (@fig-delta-a-sensitivity). While most regions exhibited relatively low sensitivity to AAR~0~ values, the \acr{NE} and \acr{CE} were both highly sensitive to a wide range of AAR~0~ values. Additionally, the \acr{SW} was moderatly sensitive to AAR~0~ values between 0.5 and 0.6. Importantly, these are also the three regions which are indicating potential glacier growth. Therefore, small differences in either $\overline{AAR}$ or AAR~0~ in any of these regions would result in relatively large changes to $\Delta$A. Additionally, while the \acr{CE} continues to show positive $\Delta$A values up to AAR~0~ ≈ 0.68, the $\Delta$A for the \acr{NE} crossess 0 at AAR~0~ ≈ 0.58 a difference of just 0.02 relative to the @Yang_Mackintosh_2026 data. 
+
+![Sensitivity of committed area loss to a range of plausible equilibrium AAR values. Thick lines color coded by region, thin black line for all Greenland. Steeper lines indicate greater sensitivity.](images/delta_A_sensitivity.png){#fig-delta-a-sensitivity fig-alt="A line plot"}
+
+#### Review of Yang et al. Methods and Accuracy within Greenland
+While the @Yang_Mackintosh_2026 data is laudible, and on of the only glacier-specific AAR~0~ datasets available, it may not be well suited for use in Greenland. For example, consider this large glacier in the \acr{NW} (RGI2000-v7.0-G-05-00250; @fig-glacier). This glacier is the most extreme example of a positive $\Delta$A in the dataset. With an $\overline{AAR}$ of 0.63 and a realized area loss of < 2\% from circa 2020 to 2025 this glacier appears to be relatively healthy. However, the @Yang_Mackintosh_2026 data lists the AAR~0~ for this glacier as 0.45, a shockingly low estimate. In fact, of the top 10 most positive $\Delta$A glaciers in our data, 7 of them have AAR~0~ values < 0.5 (the losest tested theoretical AAR~0~ value in our sensitivity analysis). With global paleio-climate AAR~0~ estimates typically approximated at 0.58, values below 0.5 are quite low. Additionally, ice caps typically have larger AAR~0~ values, relative to equivalent mountain glaciers. 
+
+![Glacier RGI2000-v7.0-G-05-00250 located in the NW, part of a larger ice cap.](images/Yang_example.png){#fig-glacier fig-alt="A large glacier, part of a ice cap (a.k.a. a glacier complex)"}
+
+These results call into question the accuracy of the @Yang_Mackintosh_2026 data within Greenland. Despite these concerns, it is not clear if the @Yang_Mackintosh_2026 is any more or less accurate than alternate AAR~0~ estimates, including global paleoclimate estimates. Therefore, we present $\Delta$A values preliminaraly.
 
 ## References {.unnumbered}
 
