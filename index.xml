@@ -156,7 +156,7 @@ Natural Sciences</institution>
     by Aberle et al.
     (<xref alt="2025" rid="ref-Aberle_Enderlin_2025" ref-type="bibr">2025</xref>).
     For each training image five spectral indices were calculated to aid
-    in image classification; Normalized Difference Snow Index (NDSI),
+    in image classification: Normalized Difference Snow Index (NDSI),
     Normalized Difference Glacier Index (NDGI),
     Normalized Difference Water Index (NDWI),
     Normalized SWIR Difference Soil-moisture (NSDS), and
@@ -261,11 +261,11 @@ Natural Sciences</institution>
         </table>
       </table-wrap>
     </fig>
-    <p>Due to the spatial auto-correlation of the training/testing data,
+    <p>Due to the spatial autocorrelation of the training/testing data,
     K-folds methods are prone to over-inflating model accuracy with
     geospatial datasets. Therefore, it is best practice to validate
     spatial ML models using an additional dataset which is
-    spatially-temporally distant from the training/testing data and
+    spatially-temporally distant from the training/testing data, and
     which has never been seen by the model. In our study, we labeled
     5,750 Greenland-specific validation points for 5 locations, across 8
     Landsat images. These locations were chosen for validation to
@@ -276,17 +276,17 @@ Natural Sciences</institution>
     figure).</p>
     <fig id="fig-training-location">
       <caption><p>Figure 3: Locations of training/testing and validation
-      datasets across Greenland. For locations with both training and
-      validation data the validation data was at least one year
-      temporally distant from the training data. World Glacier
-      Monitoring Service benchmark glaciers Mittivakkat and Freya
-      labeled.</p></caption>
-      <graphic mimetype="image" mime-subtype="png" xlink:href="images/Training-Testing-Locator.png" />
+      datasets across Greenland, with labeled regions. For locations
+      with both training and validation data the validation data was at
+      least one year temporally distant from the training data. World
+      Glacier Monitoring Service Benchmark Glaciers Mittivakkat and
+      Freya labeled.</p></caption>
+      <graphic mimetype="image" mime-subtype="jpeg" xlink:href="images/training-locations.jpg" />
     </fig>
     <p>The three best performing ML models were retrained using 100% of
     the available training data (10,812 labeled points) and were further
     validated on previously unseen data. The overall accuracy of all
-    models decreased between 1-8% from their prior K-folds accuracy, but
+    models decreased between 1-8% from their prior K-folds accuracy but
     maintained a satisfactory ovrall accuracy. The best performing model
     on the validation data was the SVM linear model, with an overall
     accuracy of 93%
@@ -321,7 +321,7 @@ Natural Sciences</institution>
     <sec id="sec-classification">
       <title>1.2.2 Image Preprocessing and Classification</title>
       <p>Landsat images and the pretrained SVM model were uploaded to
-      the Arizona State University (ASU) Sol super computer (Sol) for
+      the Arizona State University (ASU) Sol supercomputer (Sol) for
       processing
       (<xref alt="Jennewein et al. 2023" rid="ref-HPC_2023" ref-type="bibr">Jennewein
       et al. 2023</xref>). Raw Landsat images were initially converted
@@ -396,7 +396,7 @@ Natural Sciences</institution>
       by a rapid rebound (end of ablation; onset of seasonal snowfall).
       In practice a combination of cloudy images and poor image
       classification can drive the glacier area ratio down. To screen
-      these poor quality images a loess function was fit to the glacier
+      these poor-quality images a loess function was fit to the glacier
       area ratio data for each glacier-year. The residuals were
       calculated for each glacier observation, and observations with
       residuals &lt; the 25<sup>th</sup> percentile per glacier-year
@@ -484,7 +484,7 @@ Natural Sciences</institution>
       ablation period
       (<xref alt="Section 1.4" rid="sec-observation-density">Section 1.4</xref>),
       then the AAR was considered valid, and the data was saved to a
-      separate intermediate datafile. In total 37,036 glacier-years had
+      separate intermediate data file. In total 37,036 glacier-years had
       quality AAR data.</p>
     </sec>
     <sec id="sec-mean-aar">
@@ -497,7 +497,7 @@ Natural Sciences</institution>
       <inline-formula><alternatives>
       <tex-math><![CDATA[\overline{AAR}]]></tex-math>
       <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
-      was saved to a separate datafile with 3,679 glaciers.</p>
+      was saved to a separate data file with 3,679 glaciers.</p>
     </sec>
   </sec>
   <sec id="sec-observation-density">
@@ -511,8 +511,8 @@ Natural Sciences</institution>
     subseting experiments was performed where n randomly selected points
     were subset from the glacier-year data. Using the randomly subset
     data, the assumed AAR was selected and compared against the actual
-    (known) AAR from the full dataset. The n observations tested were;
-    3, 5, 7, 9, 12, 15, 20, 25, 30, and each experiment was repeated 100
+    (known) AAR from the full dataset. The n observations tested were 3,
+    5, 7, 9, 12, 15, 20, 25, 30, and each experiment was repeated 100
     times, for a total of 18,900 simulations
     <xref alt="Figure 6" rid="fig-obs-dense">Figure 6</xref>. Based on
     the resultus of these simulations, at least 9 quality observations
@@ -522,10 +522,9 @@ Natural Sciences</institution>
       <caption><p>Figure 6: Sensitivity of the AAR to the number of
       quality observations in the dataset. Observations are randomly
       subset from a selection of well observed glacier-years with at
-      least 30 quality observations. Violin plots and jittered
-      scatterplot with partially transparent points represent the
-      density and variance of the experimental AAR error relative to the
-      known value.</p></caption>
+      least 30 quality observations. Violin plots with jittered
+      partially transparent points represent the density of the
+      experimental AAR error relative to the known value.</p></caption>
       <graphic mimetype="image" mime-subtype="png" xlink:href="images/observation_density.png" />
     </fig>
     <fig id="tbl-obs-dense">
@@ -537,8 +536,8 @@ Natural Sciences</institution>
           <thead>
             <tr>
               <th align="left">n Quality Observations</th>
-              <th align="right">mean AAR error</th>
-              <th align="right">median AAR error</th>
+              <th align="right">Mean AAR Error</th>
+              <th align="right">Median AAR Error</th>
             </tr>
           </thead>
           <tbody>
@@ -641,9 +640,9 @@ Natural Sciences</institution>
       AAR<sub>0</sub> values, the NE and CE were both highly sensitive
       to a wide range of AAR<sub>0</sub> values. Additionally, the SW
       was moderatly sensitive to AAR<sub>0</sub> values between 0.5 and
-      0.6. Importantly, these are also the three regions which are
-      indicating potential glacier growth. Therefore, small differences
-      in either <inline-formula><alternatives>
+      0.6. Importantly, these are also the three regions which indicate
+      potential glacier growth. Therefore, small differences in either
+      <inline-formula><alternatives>
       <tex-math><![CDATA[\overline{AAR}]]></tex-math>
       <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
       or AAR<sub>0</sub> in any of these regions would result in
@@ -675,7 +674,7 @@ Natural Sciences</institution>
       Greenland</title>
       <p>While the Yang et al.
       (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
-      data is laudible, and on of the only glacier-specific
+      data is laudible, and one of the only glacier-specific
       AAR<sub>0</sub> datasets available, it may not be well suited for
       use in Greenland. For example, consider this large glacier in the
       north west (NW) (RGI2000-v7.0-G-05-00250;
@@ -691,35 +690,58 @@ Natural Sciences</institution>
       2025 this glacier appears to be relatively healthy. However, the
       Yang et al.
       (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
-      data lists the AAR<sub>0</sub> for this glacier as 0.45, a
+      data list the AAR<sub>0</sub> for this glacier as 0.45, a
       shockingly low estimate. In fact, of the top 10 most positive
       <inline-formula><alternatives>
       <tex-math><![CDATA[\Delta]]></tex-math>
       <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
       glaciers in our data, 7 of them have AAR<sub>0</sub> values &lt;
       0.5 (the losest tested theoretical AAR<sub>0</sub> value in our
-      sensitivity analysis). With global paleio-climate AAR<sub>0</sub>
-      estimates typically approximated at 0.58, values below 0.5 are
-      quite low. Additionally, ice caps typically have larger
-      AAR<sub>0</sub> values, relative to equivalent mountain
-      glaciers.</p>
+      sensitivity analysis). Global paleio-climate AAR<sub>0</sub>
+      estimates are typically estimated as 0.58, therefore, values below
+      0.5 are quite low. Additionally, ice caps typically have larger
+      AAR<sub>0</sub> values, relative to equivalent mountain glaciers
+      (<xref alt="Yang et al. 2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">Yang
+      et al. 2026</xref>;
+      <xref alt="Kern and László 2010" rid="ref-Kern_László_2010" ref-type="bibr">Kern
+      and László 2010</xref>).</p>
       <fig id="fig-glacier">
-        <caption><p>Figure 9: Glacier RGI2000-v7.0-G-05-00250 located in
-        the NW, part of a larger ice cap.</p></caption>
+        <caption><p>Figure 9: Glacier RGI2000-v7.0-G-05-00250,
+        07/16/2022, located in the NW, part of a larger ice cap.
+        <inline-formula><alternatives>
+        <tex-math><![CDATA[\overline{AAR}]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+        = 0.63, presumed AAR<sub>0</sub> = 0.45, shown here at the end
+        of the 2022 ablation season, AAR<sub>2022</sub> = 0.45 (the
+        lowest observed annual AAR in the dataset).</p></caption>
         <graphic mimetype="image" mime-subtype="png" xlink:href="images/Yang_example.png" />
       </fig>
       <p>These results call into question the accuracy of the Yang et
       al.
       (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
-      data within Greenland. Despite these concerns, it is not clear if
-      the Yang et al.
-      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
-      is any more or less accurate than alternate AAR<sub>0</sub>
-      estimates, including global paleoclimate estimates. Therefore, we
-      present <inline-formula><alternatives>
+      data within Greenland. Alternate estimates by Kern and László
+      (<xref alt="2010" rid="ref-Kern_László_2010" ref-type="bibr">2010</xref>)
+      call for AAR<sub>0</sub> = 0.64 for glaciers &gt; 4
+      km<sup>2</sup>, which would alter the
+      <inline-formula><alternatives>
       <tex-math><![CDATA[\Delta]]></tex-math>
       <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
-      values preliminaraly.</p>
+      of our representative glacier from strongly positive to in
+      equilibrium. However, the Kern and László
+      (<xref alt="2010" rid="ref-Kern_László_2010" ref-type="bibr">2010</xref>)
+      estimates predate Yang et al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>),
+      and only considered glaciers up to ~40 km<sup>2</sup>, 6 times
+      smaller than our representative glacier. As a result, it is not
+      clear if the Yang et al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
+      is any more or less accurate than alternate AAR<sub>0</sub>
+      estimates. Therefore, we present <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+      values preliminaraly using Yang et al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
+      AAR<sub>0</sub> estimates.</p>
     </sec>
   </sec>
 </sec>
@@ -928,6 +950,23 @@ Natural Sciences</institution>
       <pub-id pub-id-type="doi">10.32614/RJ-2018-009</pub-id>
       <fpage>439</fpage>
       <lpage>446</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-Kern_László_2010">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Kern</surname><given-names>Zoltán</given-names></name>
+        <name><surname>László</surname><given-names>Péter</given-names></name>
+      </person-group>
+      <article-title>Size specific steady-state accumulation-area ratio: An improvement for equilibrium-line estimation of small palaeoglaciers</article-title>
+      <source>Special Theme: Case Studies of Neodymium Isotopes in Paleoceanography</source>
+      <year iso-8601-date="2010">2010</year>
+      <volume>29</volume>
+      <issue>19</issue>
+      <issn>0277-3791</issn>
+      <pub-id pub-id-type="doi">10.1016/j.quascirev.2010.06.033</pub-id>
+      <fpage>2781</fpage>
+      <lpage>2787</lpage>
     </element-citation>
   </ref>
 </ref-list>
