@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Travis Zalesky">
+<meta name="author" content="Miguel Arteaga">
+<meta name="author" content="Alli N Cramer">
+<meta name="author" content="Jiwei Li">
+<meta name="author" content="Laura Larocca">
+<meta name="dcterms.date" content="2026-11-21">
+<meta name="keywords" content="Glacier Mass Balance, Accumulation Area Ratio, Landsat, Remote Sensing, Machine Learning, Landcover Classification, AGU 2026">
+
+<title>Quantifying Climate Disequilibrium and Committed Retreat of Greenland’s Peripheral Glaciers Using Landsat-Derived Accumulation Area Ratios – AGU 2026 Poster Supplemental</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-991b1886d3c685c7aa2b62b80640c7af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-methods" id="toc-sec-methods" class="nav-link active" data-scroll-target="#sec-methods"><span class="header-section-number">1</span> Methods</a>
+  <ul class="collapse">
+  <li><a href="#sec-training" id="toc-sec-training" class="nav-link" data-scroll-target="#sec-training"><span class="header-section-number">1.1</span> Model Training and Validation</a></li>
+  <li><a href="#sec-lcc" id="toc-sec-lcc" class="nav-link" data-scroll-target="#sec-lcc"><span class="header-section-number">1.2</span> Land Cover Classification</a></li>
+  <li><a href="#sec-postprocessing" id="toc-sec-postprocessing" class="nav-link" data-scroll-target="#sec-postprocessing"><span class="header-section-number">1.3</span> Postprocessing</a></li>
+  <li><a href="#sec-observation-density" id="toc-sec-observation-density" class="nav-link" data-scroll-target="#sec-observation-density"><span class="header-section-number">1.4</span> Glacier-Year Observation Density Sensitivity Analysis</a></li>
+  <li><a href="#sec-aar0" id="toc-sec-aar0" class="nav-link" data-scroll-target="#sec-aar0"><span class="header-section-number">1.5</span> Equilibrium AAR and Committed Area Loss</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF (agu)</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Quantifying Climate Disequilibrium and Committed Retreat of Greenland’s Peripheral Glaciers Using Landsat-Derived Accumulation Area Ratios</h1>
+<p class="subtitle lead">AGU 2026 Poster Presentation — Supplemental</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Travis Zalesky <a href="mailto:tzalesky@asu.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0009-0006-0181-3099" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Arizona State University, School of Ocean Futures
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Miguel Arteaga </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Arizona State University, School of Ocean Futures
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Alli N Cramer </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Arizona State University, School of Mathematical and Natural Sciences
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jiwei Li </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Arizona State University, School of Ocean Futures
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Laura Larocca </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Arizona State University, School of Ocean Futures
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 21, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>Glacier Mass Balance, Accumulation Area Ratio, Landsat, Remote Sensing, Machine Learning, Landcover Classification, AGU 2026</p>
+  </div>
+</div>
+
+</header>
+
+
+<section id="sec-methods" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="sec-methods"><span class="header-section-number">1</span> Methods</h2>
+<section id="sec-training" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="sec-training"><span class="header-section-number">1.1</span> Model Training and Validation</h3>
+<p>Machine learning (ML) classification of Landsat images was based on a modified version of methods published by <span class="citation" data-cites="Aberle_Enderlin_2025">Aberle et al. (<a href="#ref-Aberle_Enderlin_2025" role="doc-biblioref">2025</a>)</span>. Initial training data (labeled points and images) was acquired courtesy of Aberle et al.&nbsp;for 4 USGS Benchmark glaciers (Gulkana, South Cascade, Sperry, and Wolverine) across 7 Landsat images, for a total of 8,162 training points. These labeled training points were augmented with an additional 2,650 training points within Greenland, for a combined total of 10,812 training points. For Greenland training data, two locations were chosen, Mittivakkat glacier in south-east Greenland, and a heavily glaciated rocky peninsula in west-central Greenland (72°N, 54°W; north of Disko Island). Additionally, the “cloud” class was added to the list of 5 landcover types from <span class="citation" data-cites="Aberle_Enderlin_2025">Aberle et al. (<a href="#ref-Aberle_Enderlin_2025" role="doc-biblioref">2025</a>)</span>, bringing the total number of land cover classifications to 6, “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and “water”.</p>
+<p>Surface reflectance Landsat 8 &amp; 9 images were acquired for each of these training locations/dates via Google Earth Engine (GEE). Where multiple Landsat images overlapped within a 1-hour window for a single glacier (i.e.&nbsp;successive Landsat rows), images were merged using a median pixel value, as described by <span class="citation" data-cites="Aberle_Enderlin_2025">Aberle et al. (<a href="#ref-Aberle_Enderlin_2025" role="doc-biblioref">2025</a>)</span>. For each training image five spectral indices were calculated to aid in image classification: Normalized Difference Snow Index (NDSI), Normalized Difference Glacier Index (NDGI), Normalized Difference Water Index (NDWI), Normalized SWIR Difference Soil-moisture (NSDS), and Normalized Difference Vegetation Index (NDVI) (Equations <a href="#eq-ndsi" class="quarto-xref">1</a> to <a href="#eq-ndvi" class="quarto-xref">5</a>). Each of these indices was tested individually and in combination with the other bands/indices and was found to aid separation of one or more of the landcover classes of interest. Surface reflectance, surface temperature, and all 5 spectral indices data were extracted from pixel data at each of the labeled training data points (Figures <a href="#fig-fingerprint-SR" class="quarto-xref">1</a> &amp; <a href="#fig-fingerprint-indeices" class="quarto-xref">2</a>).</p>
+<p><span id="eq-ndsi"><span class="math display">\[
+  NDSI = \frac{green - SWIR_1}{green + SWIR_1} = \frac{SR\_B3 - SR\_B6}{SR\_B3 + SR\_B6}
+\tag{1}\]</span></span> <span id="eq-ndgi"><span class="math display">\[
+  NDGI = \frac{green - red}{green + red} = \frac{SR\_B3 - SR\_B4}{SR\_B3 + SR\_B4}
+\tag{2}\]</span></span> <span id="eq-ndwi"><span class="math display">\[
+  NDWI = \frac{green - NIR}{green + NIR} = \frac{SR\_B3 - SR\_B5}{SR\_B3 + SR\_B5}
+\tag{3}\]</span></span> <span id="eq-nsds"><span class="math display">\[
+  NSDS = \frac{SWIR_1 - SWIR_2}{SWIR_1 + SWIR_2} = \frac{SR\_B6 - SR\_B7}{SR\_B6 + SR\_B7}
+\tag{4}\]</span></span> <span id="eq-ndvi"><span class="math display">\[
+  NDVI = \frac{NIR - red}{NIR + red} = \frac{SR\_B5 - SR\_B4}{SR\_B5 + SR\_B4}
+\tag{5}\]</span></span></p>
+<div id="fig-fingerprint-SR" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Spectral fingerprint boxplot">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fingerprint-SR-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/SpectralFingerprint_SR_ST.png" class="img-fluid figure-img" alt="Spectral fingerprint boxplot">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fingerprint-SR-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The spectral fingerprint of surface reflectance and surface temperature for Landsat 8/9 images across 6 surface cover classes “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and “water”.
+</figcaption>
+</figure>
+</div>
+<div id="fig-fingerprint-indeices" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Spectral fingerprint boxplot">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fingerprint-indeices-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/SpectralFingerprint_Indicies.png" class="img-fluid figure-img" alt="Spectral fingerprint boxplot">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fingerprint-indeices-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: The spectral fingerprint of five calculated indices, Normalized Difference Snow Index (NDSI), Normalized Difference Glacier Index (NDGI), Normalized Difference Water Index (NDWI), Normalized SWIR Difference Soil-moisture (NSDS), and Normalized Difference Vegetation Index (NDVI) from Landsat 8/9 images across 6 surface cover classes “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and “water”.
+</figcaption>
+</figure>
+</div>
+<p>For model training and testing a K-folds repeated cross-validation method was utilized with 10 folds, 10 repeats, and a partition (p) = 0.9 resulting in a 90/10 training/testing split, where all labeled data points are utilized in testing for exactly 1 of 10 folds/repeats. Using this training/testing framework a total of 129 distinct ML models were tested, across 10 model types, using a hyper-parameter grid search performed in R utilizing the caret package <span class="citation" data-cites="Kuhn_2008">(<a href="#ref-Kuhn_2008" role="doc-biblioref">Kuhn 2008</a>)</span>. Based on the accuracy results of this training/testing model optimization process, the three best performing models were selected for additional model validation using previously unseen, spatially-temporally distant validation data. The top three, best performing models were, random forest, support vector machine (SVM) using a linear kernel, and SVM with a radial kernel <a href="#tbl-hyperparams" class="quarto-xref">Table&nbsp;1</a>.</p>
+<div id="tbl-hyperparams" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-hyperparams-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: The hyperparameters and testing accuracy for the three best performing machine learning models on k-folds training-testing data.
+</figcaption>
+<div aria-describedby="tbl-hyperparams-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Model</th>
+<th style="text-align: left;">Parameters</th>
+<th style="text-align: center;">Testing Accuracy (k-folds)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Random Forest</td>
+<td style="text-align: left;">mtry = 6</td>
+<td style="text-align: center;">0.98</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Support Vector Machine</td>
+<td style="text-align: left;">radial kernel; sigma = 1 and C = 8</td>
+<td style="text-align: center;">0.98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Support Vector Machine</td>
+<td style="text-align: left;">linear kernel; C = 8</td>
+<td style="text-align: center;">0.97</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Due to the spatial autocorrelation of the training/testing data, K-folds methods are prone to over-inflating model accuracy with geospatial datasets. Therefore, it is best practice to validate spatial ML models using an additional dataset which is spatially-temporally distant from the training/testing data, and which has never been seen by the model. In our study, we labeled 5,750 Greenland-specific validation points for 5 locations, across 8 Landsat images. These locations were chosen for validation to capture a range of regional variability across the island. The five validation locations are, Mittivakkat glacier (3 dates/images), central-west peninsula (2), southern tip (1), Freya glacier (central-east, 1), and far north (1). (Validation point locator map figure).</p>
+<div id="fig-training-location" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Map of Greenland">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-training-location-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/training-locations.jpg" class="img-fluid figure-img" alt="Map of Greenland">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-training-location-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Locations of training/testing and validation datasets across Greenland, with labeled regions. For locations with both training and validation data the validation data was at least one year temporally distant from the training data. World Glacier Monitoring Service Benchmark Glaciers Mittivakkat and Freya labeled.
+</figcaption>
+</figure>
+</div>
+<p>The three best performing ML models were retrained using 100% of the available training data (10,812 labeled points) and were further validated on previously unseen data. The overall accuracy of all models decreased between 1-8% from their prior K-folds accuracy but maintained a satisfactory ovrall accuracy. The best performing model on the validation data was the SVM linear model, with an overall accuracy of 93% (<a href="#fig-confusion" class="quarto-xref">Figure&nbsp;4</a>). The F1 statistic (a measure of model performance) was 94% for snow and 91% for ice, the two most critical classes for accurate Accumulation Area Ratio (AAR) calculation.</p>
+<div id="fig-confusion" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-alg="A confusion matrix of prediction accuracy">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/confusion-matrix-table.jpg" class="img-fluid figure-img" data-fig-alg="A confusion matrix of prediction accuracy">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Glacier surface classification confusion matrix for the validated surface vector machine learner with linerar kernel across 6 surface cover classes, normalized as a frcation of total validation points, color coded by accuracy.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-lcc" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="sec-lcc"><span class="header-section-number">1.2</span> Land Cover Classification</h3>
+<section id="sec-lcc-data" class="level4" data-number="1.2.1">
+<h4 data-number="1.2.1" class="anchored" data-anchor-id="sec-lcc-data"><span class="header-section-number">1.2.1</span> Data Acquisition</h4>
+<p>Following model validation, all applicable Landsat 8 &amp; 9 Collection 2 Level-2, Tier 1 surface reflectance Science Products images from 2015-2025 during the ablation season (JJAS) which contained at least one peripheral glacier were downloaded using either GEE geedim python package or the United States Geological Survey (USGS) EarthExplorer data portal. Images taken on ascending orbits, and images which only covered the Greenland ice sheet but did not contain any peripheral glaciers were excluded. In total, 20,562 unique images were downloaded (~17 TB).</p>
+</section>
+<section id="sec-classification" class="level4" data-number="1.2.2">
+<h4 data-number="1.2.2" class="anchored" data-anchor-id="sec-classification"><span class="header-section-number">1.2.2</span> Image Preprocessing and Classification</h4>
+<p>Landsat images and the pretrained SVM model were uploaded to the Arizona State University (ASU) Sol supercomputer (Sol) for processing <span class="citation" data-cites="HPC_2023">(<a href="#ref-HPC_2023" role="doc-biblioref">Jennewein et al. 2023</a>)</span>. Raw Landsat images were initially converted to surface reflectance and surface temperature data using established scaling factors for the OLI and TIRS instruments respectively. Images were then masked to peripheral glaciers using a buffered version of the Randolf Glacier Inventory (RGI) glacier outlines <span class="citation" data-cites="RGI_2023">(<a href="#ref-RGI_2023" role="doc-biblioref">RGI Consortium 2023</a>)</span>. A secondary cloud mask was applied based on a modified version of the Antarctic cloud mask developed by <span class="citation" data-cites="Moussavi_2020">Moussavi et al. (<a href="#ref-Moussavi_2020" role="doc-biblioref">2020</a>)</span>. After masking, the five indices were calculated as with the training dataset.</p>
+<p>Preprocessed images were classified according to the pretrained SVM (linear) model. For each classified image, glaciers with at least 70% classification coverage were identified by a spatial query with the image extent. For each of the glaciers identified the surface area for each landcover class was extracted from the classified image along with relevant image metadata. For each glacier observation the transient AAR was calculated according to equations <a href="#eq-snow-area" class="quarto-xref">6</a> to <a href="#eq-trans-aar" class="quarto-xref">8</a>. Each glacier observation and associated calculations was appended to a data file, culminating in ~4.6 million glacier observations. This data file was downloaded for further post-processing.</p>
+<p><span id="eq-snow-area"><span class="math display">\[
+Total\:Snow\:Area\:(km^2) = snow + shadowed\:snow
+\tag{6}\]</span></span> <span id="eq-glacier-area"><span class="math display">\[
+Total\:Glacier\:Area\:(km^2) = Total\:Snow\:Area + ice/firn
+\tag{7}\]</span></span> <span id="eq-trans-aar"><span class="math display">\[
+Transient\:AAR = \frac{Total\:Snow\:Area}{Total\:Glacier\:Area}
+\tag{8}\]</span></span></p>
+</section>
+</section>
+<section id="sec-postprocessing" class="level3" data-number="1.3">
+<h3 data-number="1.3" class="anchored" data-anchor-id="sec-postprocessing"><span class="header-section-number">1.3</span> Postprocessing</h3>
+<p>Glacier observation data was postprocessed in R using the data.table package for fast, efficient handling of large datasets <span class="citation" data-cites="R_2021 data.table_2026">(<a href="#ref-R_2021" role="doc-biblioref">R Core Team 2021</a>; <a href="#ref-data.table_2026" role="doc-biblioref">Barrett et al. 2026</a>)</span>. Spatial data was handled using the sf package <span class="citation" data-cites="sf_2018-009">(<a href="#ref-sf_2018-009" role="doc-biblioref">Pebesma 2018</a>)</span>.</p>
+<section id="sec-QC" class="level4" data-number="1.3.1">
+<h4 data-number="1.3.1" class="anchored" data-anchor-id="sec-QC"><span class="header-section-number">1.3.1</span> Quality Control and Data Filtering</h4>
+<p>A variety of quality control and filtering steps were utilizedTo ensure that appropriate annual (end-of-season) AAR values were identified from the transient AAR dataset. First, glacier observations were filtered by their calculated glacier area. Then they were filtered by cloud cover, shadowed snow ratio, glacier size, glacier slope, and finally by date.</p>
+<p>The first observation filtering process leveraged the glacier area to identify and screen poorly classified images. The glacier area is calculated according to <a href="#eq-glacier-area" class="quarto-xref">Equation&nbsp;7</a>, and the glacier area ratio is standardized by dividing the glacier area by its RGI glacier extent (circa 2000). Ideally, throughout the ablation season, the glacier area ratio is expected to vary smoothly from ~1 (spring; fully snow covered) to some minimum value (late summer; exposed ice and rock near terminous), followed by a rapid rebound (end of ablation; onset of seasonal snowfall). In practice a combination of cloudy images and poor image classification can drive the glacier area ratio down. To screen these poor-quality images a loess function was fit to the glacier area ratio data for each glacier-year. The residuals were calculated for each glacier observation, and observations with residuals &lt; the 25<sup>th</sup> percentile per glacier-year were filtered out (<a href="#fig-loess" class="quarto-xref">Figure&nbsp;5</a>).</p>
+<div id="fig-loess" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatterplot">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-loess-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Mitt_2024_FAR_filter.png" class="img-fluid figure-img" alt="Scatterplot">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loess-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Graphical representation of the glacier area ratio, glacier observation filtering process for Mittivakkat glacier, 2024. A loess smoothing function (black line) is fit to the dataset. Glacier observations with a model residual &lt; the 25<sup>th</sup> percentile are removed (open red circles). All other datapoints are retained (green points).
+</figcaption>
+</figure>
+</div>
+<p>Several additional simple filters were applied to the transient AAR data according to AAR accuracy spot-checks and sensitivity analysis <a href="#tbl-filters" class="quarto-xref">Table&nbsp;2</a>. After all other filters were applied, the number of remaining quality glacier observations were counted for each glacier year. Glacier years which did not have at least 9 quality observations were removed.</p>
+<div id="tbl-filters" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-filters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Quality control filters applied to the transient AAR dataset.
+</figcaption>
+<div aria-describedby="tbl-filters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Filter</th>
+<th style="text-align: left;">Data Source/Equation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">cloud cover</td>
+<td style="text-align: left;">&lt; 80%</td>
+<td style="text-align: left;"><span class="math inline">\(\frac{cloud\:area}{RGI\:area}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">shadowed snow</td>
+<td style="text-align: left;">&lt; 50%</td>
+<td style="text-align: left;"><span class="math inline">\(\frac{shadowed\:snow\:area}{RGI\:area}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">glacier area</td>
+<td style="text-align: left;">&gt; 1 km<sup>2</sup> &amp; &lt; 300 km<sup>2</sup></td>
+<td style="text-align: left;">RGI</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">slope</td>
+<td style="text-align: left;">&lt; 20°</td>
+<td style="text-align: left;">RGI</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">day of year</td>
+<td style="text-align: left;">&lt; 259 (~Sep.&nbsp;16<sup>th</sup>)</td>
+<td style="text-align: left;">Landsat image metadata</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">n quality images</td>
+<td style="text-align: left;">&gt; 8</td>
+<td style="text-align: left;">filtered transient AAR data</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-aar" class="level4" data-number="1.3.2">
+<h4 data-number="1.3.2" class="anchored" data-anchor-id="sec-aar"><span class="header-section-number">1.3.2</span> Annual AAR determination</h4>
+<p>From this filtered transient AAR dataset, the annual (end-of-season) AAR was identified as the minimum remaining transient AAR value (hereafter, AAR is synonymous with annual AAR). All late season glacier observations occurring after the AAR date were filtered, and the number of remaining glacier observations during the abblation period were counted. If a glacier-year had at least 9 quality observations during the ablation period (<a href="#sec-observation-density" class="quarto-xref">Section&nbsp;1.4</a>), then the AAR was considered valid, and the data was saved to a separate intermediate data file. In total 37,036 glacier-years had quality AAR data.</p>
+</section>
+<section id="sec-mean-aar" class="level4" data-number="1.3.3">
+<h4 data-number="1.3.3" class="anchored" data-anchor-id="sec-mean-aar"><span class="header-section-number">1.3.3</span> Mean AAR</h4>
+<p>The mean AAR (<span class="math inline">\(\overline{AAR}\)</span>) was calculated as the arithmetic mean of AAR for glaciers which had at least 5 years of quality data. <span class="math inline">\(\overline{AAR}\)</span> was saved to a separate data file with 3,679 glaciers.</p>
+</section>
+</section>
+<section id="sec-observation-density" class="level3" data-number="1.4">
+<h3 data-number="1.4" class="anchored" data-anchor-id="sec-observation-density"><span class="header-section-number">1.4</span> Glacier-Year Observation Density Sensitivity Analysis</h3>
+<p>To quantify the number of quality images needed for accurate identification of the AAR, an observational density experiment was performed. Twenty-one well-observed glacier-years were identified, evenly distributed around Greenland, each with at least 30 quality glacier observations (post filtering). For each glacier a series of subseting experiments was performed where n randomly selected points were subset from the glacier-year data. Using the randomly subset data, the assumed AAR was selected and compared against the actual (known) AAR from the full dataset. The n observations tested were 3, 5, 7, 9, 12, 15, 20, 25, 30, and each experiment was repeated 100 times, for a total of 18,900 simulations <a href="#fig-obs-dense" class="quarto-xref">Figure&nbsp;6</a>. Based on the resultus of these simulations, at least 9 quality observations per year are needed to reliably identify the AAR <a href="#tbl-obs-dense" class="quarto-xref">Table&nbsp;3</a>.</p>
+<div id="fig-obs-dense" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Violin plot with points.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-obs-dense-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/observation_density.png" class="img-fluid figure-img" alt="Violin plot with points.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-obs-dense-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Sensitivity of the AAR to the number of quality observations in the dataset. Observations are randomly subset from a selection of well observed glacier-years with at least 30 quality observations. Violin plots with jittered partially transparent points represent the density of the experimental AAR error relative to the known value.
+</figcaption>
+</figure>
+</div>
+<div id="tbl-obs-dense" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-obs-dense-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Mean and median AAR error rates for the observation density sensitivity analysis (2,100 simulations per subset).
+</figcaption>
+<div aria-describedby="tbl-obs-dense-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">n Quality Observations</th>
+<th style="text-align: right;">Mean AAR Error</th>
+<th style="text-align: right;">Median AAR Error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">-0.266</td>
+<td style="text-align: right;">-0.190</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">-0.188</td>
+<td style="text-align: right;">-0.126</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: right;">-0.143</td>
+<td style="text-align: right;">-0.083</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">9</td>
+<td style="text-align: right;">-0.114</td>
+<td style="text-align: right;">-0.045</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">12</td>
+<td style="text-align: right;">-0.094</td>
+<td style="text-align: right;">-0.027</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">15</td>
+<td style="text-align: right;">-0.067</td>
+<td style="text-align: right;">-0.019</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">20</td>
+<td style="text-align: right;">-0.044</td>
+<td style="text-align: right;">-0.007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">25</td>
+<td style="text-align: right;">-0.030</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">30</td>
+<td style="text-align: right;">-0.018</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-aar0" class="level3" data-number="1.5">
+<h3 data-number="1.5" class="anchored" data-anchor-id="sec-aar0"><span class="header-section-number">1.5</span> Equilibrium AAR and Committed Area Loss</h3>
+<p>Equilibrium AAR (AAR<sub>0</sub>) values were given by <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span>. Disequalibrium (<span class="math inline">\(\alpha\)</span>) and committed area loss (<span class="math inline">\(\Delta\)</span>A) were calculated according to <span class="citation" data-cites="Box_Hubbard_2022">Box et al. (<a href="#ref-Box_Hubbard_2022" role="doc-biblioref">2022</a>)</span>. The <span class="math inline">\(\Delta\)</span>A values varried considerably by region, with the central east (CE), north east (NE), south west (SW) all showing positive committed area change (i.e., committed growth). Furthermore, while the resulting <span class="math inline">\(\Delta\)</span>A values are approximately centered on 0 (median = -0.26 km<sup>2</sup>) the distribution is not normal (<a href="#fig-delta-a-dist" class="quarto-xref">Figure&nbsp;7</a>). Rather, the distribution is highly leptokurtic, with a slight positive skew. This indicates that, while most glaciers are near their predicted equilibrium value, the distribution is highly dominated by outliers on either side.</p>
+<div id="fig-delta-a-dist" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A histogram">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-delta-a-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/delta_A_dist.png" class="img-fluid figure-img" alt="A histogram">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-delta-a-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: The highly leptokurtic distribution of committed area change calculated using AAR<sub>0</sub> values by <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span>
+</figcaption>
+</figure>
+</div>
+<section id="sec-delta-a-sensitivity" class="level4" data-number="1.5.1">
+<h4 data-number="1.5.1" class="anchored" data-anchor-id="sec-delta-a-sensitivity"><span class="header-section-number">1.5.1</span> Committed Area Loss Sensitivity Analysis</h4>
+<p>To further investigate the <span class="math inline">\(\Delta\)</span>A results we conducted a sensitivity analysis for a range of plausible AAR<sub>0</sub> values, from 0.5 to 0.8, for each region individually as well as for Greenland as a whole (<a href="#fig-delta-a-sensitivity" class="quarto-xref">Figure&nbsp;8</a>). While most regions exhibited relatively low sensitivity to AAR<sub>0</sub> values, the NE and CE were both highly sensitive to a wide range of AAR<sub>0</sub> values. Additionally, the SW was moderatly sensitive to AAR<sub>0</sub> values between 0.5 and 0.6. Importantly, these are also the three regions which indicate potential glacier growth. Therefore, small differences in either <span class="math inline">\(\overline{AAR}\)</span> or AAR<sub>0</sub> in any of these regions would result in relatively large changes to <span class="math inline">\(\Delta\)</span>A. Additionally, while the CE continues to show positive <span class="math inline">\(\Delta\)</span>A values up to AAR<sub>0</sub> ≈ 0.68, the <span class="math inline">\(\Delta\)</span>A for the NE crossess 0 at AAR<sub>0</sub> ≈ 0.58 a difference of just 0.02 relative to the <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span> data.</p>
+<div id="fig-delta-a-sensitivity" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A line plot">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-delta-a-sensitivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/delta_A_sensitivity.png" class="img-fluid figure-img" alt="A line plot">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-delta-a-sensitivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Sensitivity of committed area loss to a range of plausible equilibrium AAR values. Thick lines color coded by region, thin black line for all Greenland. Steeper lines indicate greater sensitivity.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="review-of-yang-et-al.-methods-and-accuracy-within-greenland" class="level4" data-number="1.5.2">
+<h4 data-number="1.5.2" class="anchored" data-anchor-id="review-of-yang-et-al.-methods-and-accuracy-within-greenland"><span class="header-section-number">1.5.2</span> Review of Yang et al.&nbsp;Methods and Accuracy within Greenland</h4>
+<p>While the <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span> data is laudible, and one of the only glacier-specific AAR<sub>0</sub> datasets available, it may not be well suited for use in Greenland. For example, consider this large glacier in the north west (NW) (RGI2000-v7.0-G-05-00250; <a href="#fig-glacier" class="quarto-xref">Figure&nbsp;9</a>). This glacier is the most extreme example of a positive <span class="math inline">\(\Delta\)</span>A in the dataset. With an <span class="math inline">\(\overline{AAR}\)</span> of 0.63 and a realized area loss of &lt; 2% from circa 2020 to 2025 this glacier appears to be relatively healthy. However, the <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span> data list the AAR<sub>0</sub> for this glacier as 0.45, a shockingly low estimate. In fact, of the top 10 most positive <span class="math inline">\(\Delta\)</span>A glaciers in our data, 7 of them have AAR<sub>0</sub> values &lt; 0.5 (the losest tested theoretical AAR<sub>0</sub> value in our sensitivity analysis). Global paleio-climate AAR<sub>0</sub> estimates are typically estimated as 0.58, therefore, values below 0.5 are quite low. Additionally, ice caps typically have larger AAR<sub>0</sub> values, relative to equivalent mountain glaciers <span class="citation" data-cites="Yang_Mackintosh_2026 Kern_László_2010">(<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">Yang et al. 2026</a>; <a href="#ref-Kern_László_2010" role="doc-biblioref">Kern and László 2010</a>)</span>.</p>
+<div id="fig-glacier" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A large glacier, part of a ice cap (a.k.a. a glacier complex)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-glacier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Yang_example.png" class="img-fluid figure-img" alt="A large glacier, part of a ice cap (a.k.a. a glacier complex)">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-glacier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Glacier RGI2000-v7.0-G-05-00250, 07/16/2022, located in the NW, part of a larger ice cap. <span class="math inline">\(\overline{AAR}\)</span> = 0.63, presumed AAR<sub>0</sub> = 0.45, shown here at the end of the 2022 ablation season, AAR<sub>2022</sub> = 0.45 (the lowest observed annual AAR in the dataset).
+</figcaption>
+</figure>
+</div>
+<p>These results call into question the accuracy of the <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span> data within Greenland. Alternate estimates by <span class="citation" data-cites="Kern_László_2010">Kern and László (<a href="#ref-Kern_László_2010" role="doc-biblioref">2010</a>)</span> call for AAR<sub>0</sub> = 0.64 for glaciers &gt; 4 km<sup>2</sup>, which would alter the <span class="math inline">\(\Delta\)</span>A of our representative glacier from strongly positive to in equilibrium. However, the <span class="citation" data-cites="Kern_László_2010">Kern and László (<a href="#ref-Kern_László_2010" role="doc-biblioref">2010</a>)</span> estimates predate <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span>, and only considered glaciers up to ~40 km<sup>2</sup>, 6 times smaller than our representative glacier. As a result, it is not clear if the <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span> is any more or less accurate than alternate AAR<sub>0</sub> estimates. Therefore, we present <span class="math inline">\(\Delta\)</span>A values preliminaraly using <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span> AAR<sub>0</sub> estimates.</p>
+</section>
+</section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Aberle_Enderlin_2025" class="csl-entry" role="listitem">
+Aberle, R., E. Enderlin, S. O’Neel, C. Florentine, L. Sass, A. Dickson, H.-P. Marshall, and A. Flores. 2025. <span>“Automated Snow Cover Detection on Mountain Glaciers Using Spaceborne Imagery and Machine Learning.”</span> <em>The Cryosphere</em> 19 (4): 1675–93. <a href="https://doi.org/10.5194/tc-19-1675-2025">https://doi.org/10.5194/tc-19-1675-2025</a>.
+</div>
+<div id="ref-data.table_2026" class="csl-entry" role="listitem">
+Barrett, Tyson, Matt Dowle, Arun Srinivasan, Jan Gorecki, Michael Chirico, Toby Hocking, Benjamin Schwendinger, and Ivan Krylov. 2026. <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://r-datatable.com">https://r-datatable.com</a>.
+</div>
+<div id="ref-Box_Hubbard_2022" class="csl-entry" role="listitem">
+Box, Jason E., Alun Hubbard, David B. Bahr, William T. Colgan, Xavier Fettweis, Kenneth D. Mankoff, Adrien Wehrlé, et al. 2022. <span>“Greenland Ice Sheet Climate Disequilibrium and Committed Sea-Level Rise.”</span> <em>Nature Climate Change</em> 12 (9): 808–13. <a href="https://doi.org/10.1038/s41558-022-01441-2">https://doi.org/10.1038/s41558-022-01441-2</a>.
+</div>
+<div id="ref-HPC_2023" class="csl-entry" role="listitem">
+Jennewein, Douglas M., Johnathan Lee, Chris Kurtz, William Dizon, Ian Shaeffer, Alan Chapman, Alejandro Chiquete, et al. 2023. <span>“The Sol Supercomputer at Arizona State University.”</span> In <em>Practice and Experience in Advanced Research Computing 2023: Computing for the Common Good</em>, 296–301. PEARC ’23. New York, NY, USA: Association for Computing Machinery. <a href="https://doi.org/10.1145/3569951.3597573">https://doi.org/10.1145/3569951.3597573</a>.
+</div>
+<div id="ref-Kern_László_2010" class="csl-entry" role="listitem">
+Kern, Zoltán, and Péter László. 2010. <span>“Size Specific Steady-State Accumulation-Area Ratio: An Improvement for Equilibrium-Line Estimation of Small Palaeoglaciers.”</span> <em>Special Theme: Case Studies of Neodymium Isotopes in Paleoceanography</em> 29 (19): 2781–87. <a href="https://doi.org/10.1016/j.quascirev.2010.06.033">https://doi.org/10.1016/j.quascirev.2010.06.033</a>.
+</div>
+<div id="ref-Kuhn_2008" class="csl-entry" role="listitem">
+Kuhn, Max. 2008. <span>“Building Predictive Models in r Using the Caret Package.”</span> <em>Journal of Statistical Software</em> 28 (5): 1–26. <a href="https://doi.org/10.18637/jss.v028.i05">https://doi.org/10.18637/jss.v028.i05</a>.
+</div>
+<div id="ref-Moussavi_2020" class="csl-entry" role="listitem">
+Moussavi, Mahsa, Allen Pope, Anna Ruth W. Halberstadt, Luke D. Trusel, Leanne Cioffi, and Waleed Abdalati. 2020. <span>“Antarctic Supraglacial Lake Detection Using Landsat 8 and Sentinel-2 Imagery: Towards Continental Generation of Lake Volumes.”</span> <em>Remote Sensing</em> 12 (1): 134. <a href="https://doi.org/10.3390/rs12010134">https://doi.org/10.3390/rs12010134</a>.
+</div>
+<div id="ref-sf_2018-009" class="csl-entry" role="listitem">
+Pebesma, Edzer. 2018. <span>“The r Journal: Simple Features for r: Standardized Support for Spatial Vector Data.”</span> <em>The R Journal</em> 10: 439–46. <a href="https://doi.org/10.32614/RJ-2018-009">https://doi.org/10.32614/RJ-2018-009</a>.
+</div>
+<div id="ref-R_2021" class="csl-entry" role="listitem">
+R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-RGI_2023" class="csl-entry" role="listitem">
+RGI Consortium. 2023. <span>“Randolph Glacier Inventory - a Dataset of Global Glacier Outlines, Version 7.”</span> NASA National Snow; Ice Data Center Distributed Active Archive Center. <a href="https://doi.org/10.5067/F6JMOVY5NAVZ">https://doi.org/10.5067/F6JMOVY5NAVZ</a>.
+</div>
+<div id="ref-Yang_Mackintosh_2026" class="csl-entry" role="listitem">
+Yang, Weilin, Andrew N. Mackintosh, Emma-Louise Cooper, Yingkui Li, Richard S. Jones, Wenchao Chu, and Levan G. Tielidze. 2026. <span>“Global Estimates of Glacier Equilibrium-Line Altitude Ratios for Enhanced Paleoclimate Reconstructions.”</span> <em>Communications Earth &amp; Environment</em>, March. <a href="https://doi.org/10.1038/s43247-026-03391-5">https://doi.org/10.1038/s43247-026-03391-5</a>.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Archiving
+and Interchange DTD v1.2 20190208//EN" "JATS-archivearticle1.dtd">
+
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.2" article-type="other">
+
+<front>
+
+
+<article-meta>
+
+
+<title-group>
+<article-title>Quantifying Climate Disequilibrium and Committed Retreat
+of Greenland’s Peripheral Glaciers Using Landsat-Derived Accumulation
+Area Ratios</article-title>
+<subtitle>AGU 2026 Poster Presentation — Supplemental</subtitle>
+</title-group>
+
+<contrib-group>
+<contrib contrib-type="author" corresp="yes">
+<contrib-id contrib-id-type="orcid">0009-0006-0181-3099</contrib-id>
+<name>
+<surname>Zalesky</surname>
+<given-names>Travis</given-names>
+</name>
+<string-name>Travis Zalesky</string-name>
+
+<email>tzalesky@asu.edu</email>
+<xref ref-type="aff" rid="aff-1">a</xref>
+<xref ref-type="corresp" rid="cor-1">&#x002A;</xref>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Arteaga</surname>
+<given-names>Miguel</given-names>
+</name>
+<string-name>Miguel Arteaga</string-name>
+
+<xref ref-type="aff" rid="aff-1">a</xref>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Cramer</surname>
+<given-names>Alli N</given-names>
+</name>
+<string-name>Alli N Cramer</string-name>
+
+<xref ref-type="aff" rid="aff-2">b</xref>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Li</surname>
+<given-names>Jiwei</given-names>
+</name>
+<string-name>Jiwei Li</string-name>
+
+<xref ref-type="aff" rid="aff-1">a</xref>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Larocca</surname>
+<given-names>Laura</given-names>
+</name>
+<string-name>Laura Larocca</string-name>
+
+<xref ref-type="aff" rid="aff-1">a</xref>
+</contrib>
+</contrib-group>
+<aff id="aff-1">
+<institution-wrap>
+<institution>Arizona State University, School of Ocean
+Futures</institution>
+</institution-wrap>
+
+
+
+
+
+
+
+</aff>
+<aff id="aff-2">
+<institution-wrap>
+<institution>Arizona State University, School of Mathematical and
+Natural Sciences</institution>
+</institution-wrap>
+
+
+
+
+
+
+
+</aff>
+<author-notes>
+<corresp id="cor-1">tzalesky@asu.edu</corresp>
+</author-notes>
+
+
+
+
+
+
+
+
+
+<history></history>
+
+
+<kwd-group kwd-group-type="author">
+<kwd>Glacier Mass Balance</kwd>
+<kwd>Accumulation Area Ratio</kwd>
+<kwd>Landsat</kwd>
+<kwd>Remote Sensing</kwd>
+<kwd>Machine Learning</kwd>
+<kwd>Landcover Classification</kwd>
+<kwd>AGU 2026</kwd>
+</kwd-group>
+
+
+
+
+</article-meta>
+
+</front>
+
+<body>
+<sec id="sec-methods">
+  <title>1 Methods</title>
+  <sec id="sec-training">
+    <title>1.1 Model Training and Validation</title>
+    <p>Machine learning (ML) classification of Landsat images was based
+    on a modified version of methods published by Aberle et al.
+    (<xref alt="2025" rid="ref-Aberle_Enderlin_2025" ref-type="bibr">2025</xref>).
+    Initial training data (labeled points and images) was acquired
+    courtesy of Aberle et al. for 4 USGS Benchmark glaciers (Gulkana,
+    South Cascade, Sperry, and Wolverine) across 7 Landsat images, for a
+    total of 8,162 training points. These labeled training points were
+    augmented with an additional 2,650 training points within Greenland,
+    for a combined total of 10,812 training points. For Greenland
+    training data, two locations were chosen, Mittivakkat glacier in
+    south-east Greenland, and a heavily glaciated rocky peninsula in
+    west-central Greenland (72°N, 54°W; north of Disko Island).
+    Additionally, the “cloud” class was added to the list of 5 landcover
+    types from Aberle et al.
+    (<xref alt="2025" rid="ref-Aberle_Enderlin_2025" ref-type="bibr">2025</xref>),
+    bringing the total number of land cover classifications to 6,
+    “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and
+    “water”.</p>
+    <p>Surface reflectance Landsat 8 &amp; 9 images were acquired for
+    each of these training locations/dates via
+    Google Earth Engine (GEE). Where multiple Landsat images overlapped
+    within a 1-hour window for a single glacier (i.e. successive Landsat
+    rows), images were merged using a median pixel value, as described
+    by Aberle et al.
+    (<xref alt="2025" rid="ref-Aberle_Enderlin_2025" ref-type="bibr">2025</xref>).
+    For each training image five spectral indices were calculated to aid
+    in image classification: Normalized Difference Snow Index (NDSI),
+    Normalized Difference Glacier Index (NDGI),
+    Normalized Difference Water Index (NDWI),
+    Normalized SWIR Difference Soil-moisture (NSDS), and
+    Normalized Difference Vegetation Index (NDVI) (Equations
+    <xref alt="1" rid="eq-ndsi">1</xref> to
+    <xref alt="5" rid="eq-ndvi">5</xref>). Each of these indices was
+    tested individually and in combination with the other bands/indices
+    and was found to aid separation of one or more of the landcover
+    classes of interest. Surface reflectance, surface temperature, and
+    all 5 spectral indices data were extracted from pixel data at each
+    of the labeled training data points (Figures
+    <xref alt="1" rid="fig-fingerprint-SR">1</xref> &amp;
+    <xref alt="2" rid="fig-fingerprint-indeices">2</xref>).</p>
+    <p><styled-content id="eq-ndsi"><disp-formula><alternatives>
+    <tex-math><![CDATA[
+      NDSI = \frac{green - SWIR_1}{green + SWIR_1} = \frac{SR\_B3 - SR\_B6}{SR\_B3 + SR\_B6}
+     \qquad(1)]]></tex-math>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>S</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>1</mml:mn></mml:msub></mml:mrow><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>1</mml:mn></mml:msub></mml:mrow></mml:mfrac><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>3</mml:mn><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>6</mml:mn></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>3</mml:mn><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>6</mml:mn></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>1</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content>
+    <styled-content id="eq-ndgi"><disp-formula><alternatives>
+    <tex-math><![CDATA[
+      NDGI = \frac{green - red}{green + red} = \frac{SR\_B3 - SR\_B4}{SR\_B3 + SR\_B4}
+     \qquad(2)]]></tex-math>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>G</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>−</mml:mo><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi></mml:mrow><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>+</mml:mo><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi></mml:mrow></mml:mfrac><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>3</mml:mn><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>4</mml:mn></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>3</mml:mn><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>4</mml:mn></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>2</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content>
+    <styled-content id="eq-ndwi"><disp-formula><alternatives>
+    <tex-math><![CDATA[
+      NDWI = \frac{green - NIR}{green + NIR} = \frac{SR\_B3 - SR\_B5}{SR\_B3 + SR\_B5}
+     \qquad(3)]]></tex-math>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>−</mml:mo><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>+</mml:mo><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi></mml:mrow></mml:mfrac><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>3</mml:mn><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>5</mml:mn></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>3</mml:mn><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>5</mml:mn></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>3</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content>
+    <styled-content id="eq-nsds"><disp-formula><alternatives>
+    <tex-math><![CDATA[
+      NSDS = \frac{SWIR_1 - SWIR_2}{SWIR_1 + SWIR_2} = \frac{SR\_B6 - SR\_B7}{SR\_B6 + SR\_B7}
+     \qquad(4)]]></tex-math>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>S</mml:mi><mml:mi>D</mml:mi><mml:mi>S</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>1</mml:mn></mml:msub><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>2</mml:mn></mml:msub></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>1</mml:mn></mml:msub><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>2</mml:mn></mml:msub></mml:mrow></mml:mfrac><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>6</mml:mn><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>7</mml:mn></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>6</mml:mn><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>7</mml:mn></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>4</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content>
+    <styled-content id="eq-ndvi"><disp-formula><alternatives>
+    <tex-math><![CDATA[
+      NDVI = \frac{NIR - red}{NIR + red} = \frac{SR\_B5 - SR\_B4}{SR\_B5 + SR\_B4}
+     \qquad(5)]]></tex-math>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>V</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi><mml:mo>−</mml:mo><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi></mml:mrow><mml:mrow><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi><mml:mo>+</mml:mo><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi></mml:mrow></mml:mfrac><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>5</mml:mn><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>4</mml:mn></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>5</mml:mn><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>4</mml:mn></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>5</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+    <fig id="fig-fingerprint-SR">
+      <caption><p>Figure 1: The spectral fingerprint of surface
+      reflectance and surface temperature for Landsat 8/9 images across
+      6 surface cover classes “cloud”, “ice/firn”, “rock”, “shadowed
+      snow”, “snow”, and “water”.</p></caption>
+      <graphic mimetype="image" mime-subtype="png" xlink:href="images/SpectralFingerprint_SR_ST.png" />
+    </fig>
+    <fig id="fig-fingerprint-indeices">
+      <caption><p>Figure 2: The spectral fingerprint of five calculated
+      indices, Normalized Difference Snow Index (NDSI), Normalized
+      Difference Glacier Index (NDGI), Normalized Difference Water Index
+      (NDWI), Normalized SWIR Difference Soil-moisture (NSDS), and
+      Normalized Difference Vegetation Index (NDVI) from Landsat 8/9
+      images across 6 surface cover classes “cloud”, “ice/firn”, “rock”,
+      “shadowed snow”, “snow”, and “water”.</p></caption>
+      <graphic mimetype="image" mime-subtype="png" xlink:href="images/SpectralFingerprint_Indicies.png" />
+    </fig>
+    <p>For model training and testing a K-folds repeated
+    cross-validation method was utilized with 10 folds, 10 repeats, and
+    a partition (p) = 0.9 resulting in a 90/10 training/testing split,
+    where all labeled data points are utilized in testing for exactly 1
+    of 10 folds/repeats. Using this training/testing framework a total
+    of 129 distinct ML models were tested, across 10 model types, using
+    a hyper-parameter grid search performed in R utilizing the caret
+    package
+    (<xref alt="Kuhn 2008" rid="ref-Kuhn_2008" ref-type="bibr">Kuhn
+    2008</xref>). Based on the accuracy results of this training/testing
+    model optimization process, the three best performing models were
+    selected for additional model validation using previously unseen,
+    spatially-temporally distant validation data. The top three, best
+    performing models were, random forest, support vector machine (SVM)
+    using a linear kernel, and SVM with a radial kernel
+    <xref alt="Table 1" rid="tbl-hyperparams">Table 1</xref>.</p>
+    <fig id="tbl-hyperparams">
+      <caption><p>Table 1: The hyperparameters and testing accuracy for
+      the three best performing machine learning models on k-folds
+      training-testing data.</p></caption>
+      <table-wrap>
+        <table>
+          <thead>
+            <tr>
+              <th align="left">Model</th>
+              <th align="left">Parameters</th>
+              <th align="center">Testing Accuracy (k-folds)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td align="left">Random Forest</td>
+              <td align="left">mtry = 6</td>
+              <td align="center">0.98</td>
+            </tr>
+            <tr>
+              <td align="left">Support Vector Machine</td>
+              <td align="left">radial kernel; sigma = 1 and C = 8</td>
+              <td align="center">0.98</td>
+            </tr>
+            <tr>
+              <td align="left">Support Vector Machine</td>
+              <td align="left">linear kernel; C = 8</td>
+              <td align="center">0.97</td>
+            </tr>
+          </tbody>
+        </table>
+      </table-wrap>
+    </fig>
+    <p>Due to the spatial autocorrelation of the training/testing data,
+    K-folds methods are prone to over-inflating model accuracy with
+    geospatial datasets. Therefore, it is best practice to validate
+    spatial ML models using an additional dataset which is
+    spatially-temporally distant from the training/testing data, and
+    which has never been seen by the model. In our study, we labeled
+    5,750 Greenland-specific validation points for 5 locations, across 8
+    Landsat images. These locations were chosen for validation to
+    capture a range of regional variability across the island. The five
+    validation locations are, Mittivakkat glacier (3 dates/images),
+    central-west peninsula (2), southern tip (1), Freya glacier
+    (central-east, 1), and far north (1). (Validation point locator map
+    figure).</p>
+    <fig id="fig-training-location">
+      <caption><p>Figure 3: Locations of training/testing and validation
+      datasets across Greenland, with labeled regions. For locations
+      with both training and validation data the validation data was at
+      least one year temporally distant from the training data. World
+      Glacier Monitoring Service Benchmark Glaciers Mittivakkat and
+      Freya labeled.</p></caption>
+      <graphic mimetype="image" mime-subtype="jpeg" xlink:href="images/training-locations.jpg" />
+    </fig>
+    <p>The three best performing ML models were retrained using 100% of
+    the available training data (10,812 labeled points) and were further
+    validated on previously unseen data. The overall accuracy of all
+    models decreased between 1-8% from their prior K-folds accuracy but
+    maintained a satisfactory ovrall accuracy. The best performing model
+    on the validation data was the SVM linear model, with an overall
+    accuracy of 93%
+    (<xref alt="Figure 4" rid="fig-confusion">Figure 4</xref>). The F1
+    statistic (a measure of model performance) was 94% for snow and 91%
+    for ice, the two most critical classes for accurate
+    Accumulation Area Ratio (AAR) calculation.</p>
+    <fig id="fig-confusion">
+      <caption><p>Figure 4: Glacier surface classification confusion
+      matrix for the validated surface vector machine learner with
+      linerar kernel across 6 surface cover classes, normalized as a
+      frcation of total validation points, color coded by
+      accuracy.</p></caption>
+      <graphic mimetype="image" mime-subtype="jpeg" xlink:href="images/confusion-matrix-table.jpg" />
+    </fig>
+  </sec>
+  <sec id="sec-lcc">
+    <title>1.2 Land Cover Classification</title>
+    <sec id="sec-lcc-data">
+      <title>1.2.1 Data Acquisition</title>
+      <p>Following model validation, all applicable Landsat 8 &amp; 9
+      Collection 2 Level-2, Tier 1 surface reflectance Science Products
+      images from 2015-2025 during the ablation season (JJAS) which
+      contained at least one peripheral glacier were downloaded using
+      either GEE geedim python package or the
+      United States Geological Survey (USGS) EarthExplorer data portal.
+      Images taken on ascending orbits, and images which only covered
+      the Greenland ice sheet but did not contain any peripheral
+      glaciers were excluded. In total, 20,562 unique images were
+      downloaded (~17 TB).</p>
+    </sec>
+    <sec id="sec-classification">
+      <title>1.2.2 Image Preprocessing and Classification</title>
+      <p>Landsat images and the pretrained SVM model were uploaded to
+      the Arizona State University (ASU) Sol supercomputer (Sol) for
+      processing
+      (<xref alt="Jennewein et al. 2023" rid="ref-HPC_2023" ref-type="bibr">Jennewein
+      et al. 2023</xref>). Raw Landsat images were initially converted
+      to surface reflectance and surface temperature data using
+      established scaling factors for the OLI and TIRS instruments
+      respectively. Images were then masked to peripheral glaciers using
+      a buffered version of the Randolf Glacier Inventory (RGI) glacier
+      outlines
+      (<xref alt="RGI Consortium 2023" rid="ref-RGI_2023" ref-type="bibr">RGI
+      Consortium 2023</xref>). A secondary cloud mask was applied based
+      on a modified version of the Antarctic cloud mask developed by
+      Moussavi et al.
+      (<xref alt="2020" rid="ref-Moussavi_2020" ref-type="bibr">2020</xref>).
+      After masking, the five indices were calculated as with the
+      training dataset.</p>
+      <p>Preprocessed images were classified according to the pretrained
+      SVM (linear) model. For each classified image, glaciers with at
+      least 70% classification coverage were identified by a spatial
+      query with the image extent. For each of the glaciers identified
+      the surface area for each landcover class was extracted from the
+      classified image along with relevant image metadata. For each
+      glacier observation the transient AAR was calculated according to
+      equations <xref alt="6" rid="eq-snow-area">6</xref> to
+      <xref alt="8" rid="eq-trans-aar">8</xref>. Each glacier
+      observation and associated calculations was appended to a data
+      file, culminating in ~4.6 million glacier observations. This data
+      file was downloaded for further post-processing.</p>
+      <p><styled-content id="eq-snow-area"><disp-formula><alternatives>
+      <tex-math><![CDATA[
+      Total\:Snow\:Area\:(km^2) = snow + shadowed\:snow
+       \qquad(6)]]></tex-math>
+      <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>T</mml:mi><mml:mi>o</mml:mi><mml:mi>t</mml:mi><mml:mi>a</mml:mi><mml:mi>l</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>S</mml:mi><mml:mi>n</mml:mi><mml:mi>o</mml:mi><mml:mi>w</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>A</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>a</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mi>k</mml:mi><mml:msup><mml:mi>m</mml:mi><mml:mn>2</mml:mn></mml:msup><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow><mml:mo>=</mml:mo><mml:mi>s</mml:mi><mml:mi>n</mml:mi><mml:mi>o</mml:mi><mml:mi>w</mml:mi><mml:mo>+</mml:mo><mml:mi>s</mml:mi><mml:mi>h</mml:mi><mml:mi>a</mml:mi><mml:mi>d</mml:mi><mml:mi>o</mml:mi><mml:mi>w</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>s</mml:mi><mml:mi>n</mml:mi><mml:mi>o</mml:mi><mml:mi>w</mml:mi><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>6</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content>
+      <styled-content id="eq-glacier-area"><disp-formula><alternatives>
+      <tex-math><![CDATA[
+      Total\:Glacier\:Area\:(km^2) = Total\:Snow\:Area + ice/firn
+       \qquad(7)]]></tex-math>
+      <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>T</mml:mi><mml:mi>o</mml:mi><mml:mi>t</mml:mi><mml:mi>a</mml:mi><mml:mi>l</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>G</mml:mi><mml:mi>l</mml:mi><mml:mi>a</mml:mi><mml:mi>c</mml:mi><mml:mi>i</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>A</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>a</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mi>k</mml:mi><mml:msup><mml:mi>m</mml:mi><mml:mn>2</mml:mn></mml:msup><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow><mml:mo>=</mml:mo><mml:mi>T</mml:mi><mml:mi>o</mml:mi><mml:mi>t</mml:mi><mml:mi>a</mml:mi><mml:mi>l</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>S</mml:mi><mml:mi>n</mml:mi><mml:mi>o</mml:mi><mml:mi>w</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>A</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>a</mml:mi><mml:mo>+</mml:mo><mml:mi>i</mml:mi><mml:mi>c</mml:mi><mml:mi>e</mml:mi><mml:mi>/</mml:mi><mml:mi>f</mml:mi><mml:mi>i</mml:mi><mml:mi>r</mml:mi><mml:mi>n</mml:mi><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>7</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content>
+      <styled-content id="eq-trans-aar"><disp-formula><alternatives>
+      <tex-math><![CDATA[
+      Transient\:AAR = \frac{Total\:Snow\:Area}{Total\:Glacier\:Area}
+       \qquad(8)]]></tex-math>
+      <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>T</mml:mi><mml:mi>r</mml:mi><mml:mi>a</mml:mi><mml:mi>n</mml:mi><mml:mi>s</mml:mi><mml:mi>i</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mi>t</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>T</mml:mi><mml:mi>o</mml:mi><mml:mi>t</mml:mi><mml:mi>a</mml:mi><mml:mi>l</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>S</mml:mi><mml:mi>n</mml:mi><mml:mi>o</mml:mi><mml:mi>w</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>A</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>a</mml:mi></mml:mrow><mml:mrow><mml:mi>T</mml:mi><mml:mi>o</mml:mi><mml:mi>t</mml:mi><mml:mi>a</mml:mi><mml:mi>l</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>G</mml:mi><mml:mi>l</mml:mi><mml:mi>a</mml:mi><mml:mi>c</mml:mi><mml:mi>i</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>A</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>a</mml:mi></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>8</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+    </sec>
+  </sec>
+  <sec id="sec-postprocessing">
+    <title>1.3 Postprocessing</title>
+    <p>Glacier observation data was postprocessed in R using the
+    data.table package for fast, efficient handling of large datasets
+    (<xref alt="R Core Team 2021" rid="ref-R_2021" ref-type="bibr">R
+    Core Team 2021</xref>;
+    <xref alt="Barrett et al. 2026" rid="ref-data.table_2026" ref-type="bibr">Barrett
+    et al. 2026</xref>). Spatial data was handled using the sf package
+    (<xref alt="Pebesma 2018" rid="ref-sf_2018-009" ref-type="bibr">Pebesma
+    2018</xref>).</p>
+    <sec id="sec-QC">
+      <title>1.3.1 Quality Control and Data Filtering</title>
+      <p>A variety of quality control and filtering steps were
+      utilizedTo ensure that appropriate annual (end-of-season) AAR
+      values were identified from the transient AAR dataset. First,
+      glacier observations were filtered by their calculated glacier
+      area. Then they were filtered by cloud cover, shadowed snow ratio,
+      glacier size, glacier slope, and finally by date.</p>
+      <p>The first observation filtering process leveraged the glacier
+      area to identify and screen poorly classified images. The glacier
+      area is calculated according to
+      <xref alt="Equation 7" rid="eq-glacier-area">Equation 7</xref>,
+      and the glacier area ratio is standardized by dividing the glacier
+      area by its RGI glacier extent (circa 2000). Ideally, throughout
+      the ablation season, the glacier area ratio is expected to vary
+      smoothly from ~1 (spring; fully snow covered) to some minimum
+      value (late summer; exposed ice and rock near terminous), followed
+      by a rapid rebound (end of ablation; onset of seasonal snowfall).
+      In practice a combination of cloudy images and poor image
+      classification can drive the glacier area ratio down. To screen
+      these poor-quality images a loess function was fit to the glacier
+      area ratio data for each glacier-year. The residuals were
+      calculated for each glacier observation, and observations with
+      residuals &lt; the 25<sup>th</sup> percentile per glacier-year
+      were filtered out
+      (<xref alt="Figure 5" rid="fig-loess">Figure 5</xref>).</p>
+      <fig id="fig-loess">
+        <caption><p>Figure 5: Graphical representation of the glacier
+        area ratio, glacier observation filtering process for
+        Mittivakkat glacier, 2024. A loess smoothing function (black
+        line) is fit to the dataset. Glacier observations with a model
+        residual &lt; the 25<sup>th</sup> percentile are removed (open
+        red circles). All other datapoints are retained (green
+        points).</p></caption>
+        <graphic mimetype="image" mime-subtype="png" xlink:href="images/Mitt_2024_FAR_filter.png" />
+      </fig>
+      <p>Several additional simple filters were applied to the transient
+      AAR data according to AAR accuracy spot-checks and sensitivity
+      analysis <xref alt="Table 2" rid="tbl-filters">Table 2</xref>.
+      After all other filters were applied, the number of remaining
+      quality glacier observations were counted for each glacier year.
+      Glacier years which did not have at least 9 quality observations
+      were removed.</p>
+      <fig id="tbl-filters">
+        <caption><p>Table 2: Quality control filters applied to the
+        transient AAR dataset.</p></caption>
+        <table-wrap>
+          <table>
+            <thead>
+              <tr>
+                <th align="left">Variable</th>
+                <th align="left">Filter</th>
+                <th align="left">Data Source/Equation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="left">cloud cover</td>
+                <td align="left">&lt; 80%</td>
+                <td align="left"><inline-formula><alternatives>
+                <tex-math><![CDATA[\frac{cloud\:area}{RGI\:area}]]></tex-math>
+                <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mfrac><mml:mrow><mml:mi>c</mml:mi><mml:mi>l</mml:mi><mml:mi>o</mml:mi><mml:mi>u</mml:mi><mml:mi>d</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>a</mml:mi></mml:mrow><mml:mrow><mml:mi>R</mml:mi><mml:mi>G</mml:mi><mml:mi>I</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>a</mml:mi></mml:mrow></mml:mfrac></mml:math></alternatives></inline-formula></td>
+              </tr>
+              <tr>
+                <td align="left">shadowed snow</td>
+                <td align="left">&lt; 50%</td>
+                <td align="left"><inline-formula><alternatives>
+                <tex-math><![CDATA[\frac{shadowed\:snow\:area}{RGI\:area}]]></tex-math>
+                <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mfrac><mml:mrow><mml:mi>s</mml:mi><mml:mi>h</mml:mi><mml:mi>a</mml:mi><mml:mi>d</mml:mi><mml:mi>o</mml:mi><mml:mi>w</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>s</mml:mi><mml:mi>n</mml:mi><mml:mi>o</mml:mi><mml:mi>w</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>a</mml:mi></mml:mrow><mml:mrow><mml:mi>R</mml:mi><mml:mi>G</mml:mi><mml:mi>I</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>a</mml:mi></mml:mrow></mml:mfrac></mml:math></alternatives></inline-formula></td>
+              </tr>
+              <tr>
+                <td align="left">glacier area</td>
+                <td align="left">&gt; 1 km<sup>2</sup> &amp; &lt; 300
+                km<sup>2</sup></td>
+                <td align="left">RGI</td>
+              </tr>
+              <tr>
+                <td align="left">slope</td>
+                <td align="left">&lt; 20°</td>
+                <td align="left">RGI</td>
+              </tr>
+              <tr>
+                <td align="left">day of year</td>
+                <td align="left">&lt; 259 (~Sep. 16<sup>th</sup>)</td>
+                <td align="left">Landsat image metadata</td>
+              </tr>
+              <tr>
+                <td align="left">n quality images</td>
+                <td align="left">&gt; 8</td>
+                <td align="left">filtered transient AAR data</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+      </fig>
+    </sec>
+    <sec id="sec-aar">
+      <title>1.3.2 Annual AAR determination</title>
+      <p>From this filtered transient AAR dataset, the annual
+      (end-of-season) AAR was identified as the minimum remaining
+      transient AAR value (hereafter, AAR is synonymous with annual
+      AAR). All late season glacier observations occurring after the AAR
+      date were filtered, and the number of remaining glacier
+      observations during the abblation period were counted. If a
+      glacier-year had at least 9 quality observations during the
+      ablation period
+      (<xref alt="Section 1.4" rid="sec-observation-density">Section 1.4</xref>),
+      then the AAR was considered valid, and the data was saved to a
+      separate intermediate data file. In total 37,036 glacier-years had
+      quality AAR data.</p>
+    </sec>
+    <sec id="sec-mean-aar">
+      <title>1.3.3 Mean AAR</title>
+      <p>The mean AAR (<inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{AAR}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>)
+      was calculated as the arithmetic mean of AAR for glaciers which
+      had at least 5 years of quality data.
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{AAR}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+      was saved to a separate data file with 3,679 glaciers.</p>
+    </sec>
+  </sec>
+  <sec id="sec-observation-density">
+    <title>1.4 Glacier-Year Observation Density Sensitivity
+    Analysis</title>
+    <p>To quantify the number of quality images needed for accurate
+    identification of the AAR, an observational density experiment was
+    performed. Twenty-one well-observed glacier-years were identified,
+    evenly distributed around Greenland, each with at least 30 quality
+    glacier observations (post filtering). For each glacier a series of
+    subseting experiments was performed where n randomly selected points
+    were subset from the glacier-year data. Using the randomly subset
+    data, the assumed AAR was selected and compared against the actual
+    (known) AAR from the full dataset. The n observations tested were 3,
+    5, 7, 9, 12, 15, 20, 25, 30, and each experiment was repeated 100
+    times, for a total of 18,900 simulations
+    <xref alt="Figure 6" rid="fig-obs-dense">Figure 6</xref>. Based on
+    the resultus of these simulations, at least 9 quality observations
+    per year are needed to reliably identify the AAR
+    <xref alt="Table 3" rid="tbl-obs-dense">Table 3</xref>.</p>
+    <fig id="fig-obs-dense">
+      <caption><p>Figure 6: Sensitivity of the AAR to the number of
+      quality observations in the dataset. Observations are randomly
+      subset from a selection of well observed glacier-years with at
+      least 30 quality observations. Violin plots with jittered
+      partially transparent points represent the density of the
+      experimental AAR error relative to the known value.</p></caption>
+      <graphic mimetype="image" mime-subtype="png" xlink:href="images/observation_density.png" />
+    </fig>
+    <fig id="tbl-obs-dense">
+      <caption><p>Table 3: Mean and median AAR error rates for the
+      observation density sensitivity analysis (2,100 simulations per
+      subset).</p></caption>
+      <table-wrap>
+        <table>
+          <thead>
+            <tr>
+              <th align="left">n Quality Observations</th>
+              <th align="right">Mean AAR Error</th>
+              <th align="right">Median AAR Error</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td align="left">3</td>
+              <td align="right">-0.266</td>
+              <td align="right">-0.190</td>
+            </tr>
+            <tr>
+              <td align="left">5</td>
+              <td align="right">-0.188</td>
+              <td align="right">-0.126</td>
+            </tr>
+            <tr>
+              <td align="left">7</td>
+              <td align="right">-0.143</td>
+              <td align="right">-0.083</td>
+            </tr>
+            <tr>
+              <td align="left">9</td>
+              <td align="right">-0.114</td>
+              <td align="right">-0.045</td>
+            </tr>
+            <tr>
+              <td align="left">12</td>
+              <td align="right">-0.094</td>
+              <td align="right">-0.027</td>
+            </tr>
+            <tr>
+              <td align="left">15</td>
+              <td align="right">-0.067</td>
+              <td align="right">-0.019</td>
+            </tr>
+            <tr>
+              <td align="left">20</td>
+              <td align="right">-0.044</td>
+              <td align="right">-0.007</td>
+            </tr>
+            <tr>
+              <td align="left">25</td>
+              <td align="right">-0.030</td>
+              <td align="right">0</td>
+            </tr>
+            <tr>
+              <td align="left">30</td>
+              <td align="right">-0.018</td>
+              <td align="right">0</td>
+            </tr>
+          </tbody>
+        </table>
+      </table-wrap>
+    </fig>
+  </sec>
+  <sec id="sec-aar0">
+    <title>1.5 Equilibrium AAR and Committed Area Loss</title>
+    <p>Equilibrium AAR (AAR<sub>0</sub>) values were given by Yang et
+    al.
+    (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>).
+    Disequalibrium (<inline-formula><alternatives>
+    <tex-math><![CDATA[\alpha]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>α</mml:mi></mml:math></alternatives></inline-formula>)
+    and committed area loss (<inline-formula><alternatives>
+    <tex-math><![CDATA[\Delta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A)
+    were calculated according to Box et al.
+    (<xref alt="2022" rid="ref-Box_Hubbard_2022" ref-type="bibr">2022</xref>).
+    The <inline-formula><alternatives>
+    <tex-math><![CDATA[\Delta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+    values varried considerably by region, with the central east (CE),
+    north east (NE), south west (SW) all showing positive committed area
+    change (i.e., committed growth). Furthermore, while the resulting
+    <inline-formula><alternatives>
+    <tex-math><![CDATA[\Delta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+    values are approximately centered on 0 (median = -0.26
+    km<sup>2</sup>) the distribution is not normal
+    (<xref alt="Figure 7" rid="fig-delta-a-dist">Figure 7</xref>).
+    Rather, the distribution is highly leptokurtic, with a slight
+    positive skew. This indicates that, while most glaciers are near
+    their predicted equilibrium value, the distribution is highly
+    dominated by outliers on either side.</p>
+    <fig id="fig-delta-a-dist">
+      <caption><p>Figure 7: The highly leptokurtic distribution of
+      committed area change calculated using AAR<sub>0</sub> values by
+      Yang et al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)</p></caption>
+      <graphic mimetype="image" mime-subtype="png" xlink:href="images/delta_A_dist.png" />
+    </fig>
+    <sec id="sec-delta-a-sensitivity">
+      <title>1.5.1 Committed Area Loss Sensitivity Analysis</title>
+      <p>To further investigate the <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+      results we conducted a sensitivity analysis for a range of
+      plausible AAR<sub>0</sub> values, from 0.5 to 0.8, for each region
+      individually as well as for Greenland as a whole
+      (<xref alt="Figure 8" rid="fig-delta-a-sensitivity">Figure 8</xref>).
+      While most regions exhibited relatively low sensitivity to
+      AAR<sub>0</sub> values, the NE and CE were both highly sensitive
+      to a wide range of AAR<sub>0</sub> values. Additionally, the SW
+      was moderatly sensitive to AAR<sub>0</sub> values between 0.5 and
+      0.6. Importantly, these are also the three regions which indicate
+      potential glacier growth. Therefore, small differences in either
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{AAR}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+      or AAR<sub>0</sub> in any of these regions would result in
+      relatively large changes to <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A.
+      Additionally, while the CE continues to show positive
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+      values up to AAR<sub>0</sub> ≈ 0.68, the
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+      for the NE crossess 0 at AAR<sub>0</sub> ≈ 0.58 a difference of
+      just 0.02 relative to the Yang et al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
+      data.</p>
+      <fig id="fig-delta-a-sensitivity">
+        <caption><p>Figure 8: Sensitivity of committed area loss to a
+        range of plausible equilibrium AAR values. Thick lines color
+        coded by region, thin black line for all Greenland. Steeper
+        lines indicate greater sensitivity.</p></caption>
+        <graphic mimetype="image" mime-subtype="png" xlink:href="images/delta_A_sensitivity.png" />
+      </fig>
+    </sec>
+    <sec id="review-of-yang-et-al.-methods-and-accuracy-within-greenland">
+      <title>1.5.2 Review of Yang et al. Methods and Accuracy within
+      Greenland</title>
+      <p>While the Yang et al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
+      data is laudible, and one of the only glacier-specific
+      AAR<sub>0</sub> datasets available, it may not be well suited for
+      use in Greenland. For example, consider this large glacier in the
+      north west (NW) (RGI2000-v7.0-G-05-00250;
+      <xref alt="Figure 9" rid="fig-glacier">Figure 9</xref>). This
+      glacier is the most extreme example of a positive
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+      in the dataset. With an <inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{AAR}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+      of 0.63 and a realized area loss of &lt; 2% from circa 2020 to
+      2025 this glacier appears to be relatively healthy. However, the
+      Yang et al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
+      data list the AAR<sub>0</sub> for this glacier as 0.45, a
+      shockingly low estimate. In fact, of the top 10 most positive
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+      glaciers in our data, 7 of them have AAR<sub>0</sub> values &lt;
+      0.5 (the losest tested theoretical AAR<sub>0</sub> value in our
+      sensitivity analysis). Global paleio-climate AAR<sub>0</sub>
+      estimates are typically estimated as 0.58, therefore, values below
+      0.5 are quite low. Additionally, ice caps typically have larger
+      AAR<sub>0</sub> values, relative to equivalent mountain glaciers
+      (<xref alt="Yang et al. 2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">Yang
+      et al. 2026</xref>;
+      <xref alt="Kern and László 2010" rid="ref-Kern_László_2010" ref-type="bibr">Kern
+      and László 2010</xref>).</p>
+      <fig id="fig-glacier">
+        <caption><p>Figure 9: Glacier RGI2000-v7.0-G-05-00250,
+        07/16/2022, located in the NW, part of a larger ice cap.
+        <inline-formula><alternatives>
+        <tex-math><![CDATA[\overline{AAR}]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+        = 0.63, presumed AAR<sub>0</sub> = 0.45, shown here at the end
+        of the 2022 ablation season, AAR<sub>2022</sub> = 0.45 (the
+        lowest observed annual AAR in the dataset).</p></caption>
+        <graphic mimetype="image" mime-subtype="png" xlink:href="images/Yang_example.png" />
+      </fig>
+      <p>These results call into question the accuracy of the Yang et
+      al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
+      data within Greenland. Alternate estimates by Kern and László
+      (<xref alt="2010" rid="ref-Kern_László_2010" ref-type="bibr">2010</xref>)
+      call for AAR<sub>0</sub> = 0.64 for glaciers &gt; 4
+      km<sup>2</sup>, which would alter the
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+      of our representative glacier from strongly positive to in
+      equilibrium. However, the Kern and László
+      (<xref alt="2010" rid="ref-Kern_László_2010" ref-type="bibr">2010</xref>)
+      estimates predate Yang et al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>),
+      and only considered glaciers up to ~40 km<sup>2</sup>, 6 times
+      smaller than our representative glacier. As a result, it is not
+      clear if the Yang et al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
+      is any more or less accurate than alternate AAR<sub>0</sub>
+      estimates. Therefore, we present <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+      values preliminaraly using Yang et al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
+      AAR<sub>0</sub> estimates.</p>
+    </sec>
+  </sec>
+</sec>
+</body>
+
+<back>
+<ref-list>
+  <title>References</title>
+  <ref id="ref-Aberle_Enderlin_2025">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Aberle</surname><given-names>R.</given-names></name>
+        <name><surname>Enderlin</surname><given-names>E.</given-names></name>
+        <name><surname>O’Neel</surname><given-names>S.</given-names></name>
+        <name><surname>Florentine</surname><given-names>C.</given-names></name>
+        <name><surname>Sass</surname><given-names>L.</given-names></name>
+        <name><surname>Dickson</surname><given-names>A.</given-names></name>
+        <name><surname>Marshall</surname><given-names>H.-P.</given-names></name>
+        <name><surname>Flores</surname><given-names>A.</given-names></name>
+      </person-group>
+      <article-title>Automated snow cover detection on mountain glaciers using spaceborne imagery and machine learning</article-title>
+      <source>The Cryosphere</source>
+      <publisher-name>Copernicus Publications</publisher-name>
+      <year iso-8601-date="2025-04">2025</year><month>04</month>
+      <volume>19</volume>
+      <issue>4</issue>
+      <issn>1994-0424</issn>
+      <pub-id pub-id-type="doi">10.5194/tc-19-1675-2025</pub-id>
+      <fpage>1675</fpage>
+      <lpage>1693</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-Box_Hubbard_2022">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Box</surname><given-names>Jason E.</given-names></name>
+        <name><surname>Hubbard</surname><given-names>Alun</given-names></name>
+        <name><surname>Bahr</surname><given-names>David B.</given-names></name>
+        <name><surname>Colgan</surname><given-names>William T.</given-names></name>
+        <name><surname>Fettweis</surname><given-names>Xavier</given-names></name>
+        <name><surname>Mankoff</surname><given-names>Kenneth D.</given-names></name>
+        <name><surname>Wehrlé</surname><given-names>Adrien</given-names></name>
+        <name><surname>Noël</surname><given-names>Brice</given-names></name>
+        <name><surname>Broeke</surname><given-names>Michiel R. van den</given-names></name>
+        <name><surname>Wouters</surname><given-names>Bert</given-names></name>
+        <name><surname>Bjørk</surname><given-names>Anders A.</given-names></name>
+        <name><surname>Fausto</surname><given-names>Robert S.</given-names></name>
+      </person-group>
+      <article-title>Greenland ice sheet climate disequilibrium and committed sea-level rise</article-title>
+      <source>Nature Climate Change</source>
+      <year iso-8601-date="2022">2022</year>
+      <volume>12</volume>
+      <issue>9</issue>
+      <issn>1758-6798</issn>
+      <pub-id pub-id-type="doi">10.1038/s41558-022-01441-2</pub-id>
+      <fpage>808</fpage>
+      <lpage>813</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-Yang_Mackintosh_2026">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Yang</surname><given-names>Weilin</given-names></name>
+        <name><surname>Mackintosh</surname><given-names>Andrew N.</given-names></name>
+        <name><surname>Cooper</surname><given-names>Emma-Louise</given-names></name>
+        <name><surname>Li</surname><given-names>Yingkui</given-names></name>
+        <name><surname>Jones</surname><given-names>Richard S.</given-names></name>
+        <name><surname>Chu</surname><given-names>Wenchao</given-names></name>
+        <name><surname>Tielidze</surname><given-names>Levan G.</given-names></name>
+      </person-group>
+      <article-title>Global estimates of glacier equilibrium-line altitude ratios for enhanced paleoclimate reconstructions</article-title>
+      <source>Communications Earth &amp; Environment</source>
+      <year iso-8601-date="2026-03">2026</year><month>03</month>
+      <issn>2662-4435</issn>
+      <uri>https://doi.org/10.1038/s43247-026-03391-5</uri>
+      <pub-id pub-id-type="doi">10.1038/s43247-026-03391-5</pub-id>
+    </element-citation>
+  </ref>
+  <ref id="ref-Kuhn_2008">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Kuhn</surname><given-names>Max</given-names></name>
+      </person-group>
+      <article-title>Building predictive models in r using the caret package</article-title>
+      <source>Journal of Statistical Software</source>
+      <year iso-8601-date="2008">2008</year>
+      <volume>28</volume>
+      <issue>5</issue>
+      <pub-id pub-id-type="doi">10.18637/jss.v028.i05</pub-id>
+      <fpage>1</fpage>
+      <lpage>26</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-HPC_2023">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Jennewein</surname><given-names>Douglas M.</given-names></name>
+        <name><surname>Lee</surname><given-names>Johnathan</given-names></name>
+        <name><surname>Kurtz</surname><given-names>Chris</given-names></name>
+        <name><surname>Dizon</surname><given-names>William</given-names></name>
+        <name><surname>Shaeffer</surname><given-names>Ian</given-names></name>
+        <name><surname>Chapman</surname><given-names>Alan</given-names></name>
+        <name><surname>Chiquete</surname><given-names>Alejandro</given-names></name>
+        <name><surname>Burks</surname><given-names>Josh</given-names></name>
+        <name><surname>Carlson</surname><given-names>Amber</given-names></name>
+        <name><surname>Mason</surname><given-names>Natalie</given-names></name>
+        <name><surname>Kobawala</surname><given-names>Arhat</given-names></name>
+        <name><surname>Jagadeesan</surname><given-names>Thirugnanam</given-names></name>
+        <name><surname>Basani</surname><given-names>Praful Bhargav</given-names></name>
+        <name><surname>Battelle</surname><given-names>Torey</given-names></name>
+        <name><surname>Belshe</surname><given-names>Rebecca</given-names></name>
+        <name><surname>McCaffrey</surname><given-names>Deb</given-names></name>
+        <name><surname>Brazil</surname><given-names>Marisa</given-names></name>
+        <name><surname>Inumella</surname><given-names>Chaitanya</given-names></name>
+        <name><surname>Kuznia</surname><given-names>Kirby</given-names></name>
+        <name><surname>Buzinski</surname><given-names>Jade</given-names></name>
+        <name><surname>Shah</surname><given-names>Dhruvil Deepakbhai</given-names></name>
+        <name><surname>Dudley</surname><given-names>Sean M.</given-names></name>
+        <name><surname>Speyer</surname><given-names>Gil</given-names></name>
+        <name><surname>Yalim</surname><given-names>Jason</given-names></name>
+      </person-group>
+      <article-title>The sol supercomputer at arizona state university</article-title>
+      <source>Practice and experience in advanced research computing 2023: Computing for the common good</source>
+      <publisher-name>Association for Computing Machinery</publisher-name>
+      <publisher-loc>New York, NY, USA</publisher-loc>
+      <year iso-8601-date="2023">2023</year>
+      <isbn>978-1-4503-9985-2</isbn>
+      <uri>https://doi.org/10.1145/3569951.3597573</uri>
+      <pub-id pub-id-type="doi">10.1145/3569951.3597573</pub-id>
+      <fpage>296</fpage>
+      <lpage>301</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-RGI_2023">
+    <element-citation>
+      <person-group person-group-type="author">
+        <string-name>RGI Consortium</string-name>
+      </person-group>
+      <article-title>Randolph glacier inventory - a dataset of global glacier outlines, version 7</article-title>
+      <publisher-name>NASA National Snow; Ice Data Center Distributed Active Archive Center</publisher-name>
+      <year iso-8601-date="2023">2023</year>
+      <uri>https://nsidc.org/data/nsidc-0770/versions/7</uri>
+      <pub-id pub-id-type="doi">10.5067/F6JMOVY5NAVZ</pub-id>
+    </element-citation>
+  </ref>
+  <ref id="ref-Moussavi_2020">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Moussavi</surname><given-names>Mahsa</given-names></name>
+        <name><surname>Pope</surname><given-names>Allen</given-names></name>
+        <name><surname>Halberstadt</surname><given-names>Anna Ruth W.</given-names></name>
+        <name><surname>Trusel</surname><given-names>Luke D.</given-names></name>
+        <name><surname>Cioffi</surname><given-names>Leanne</given-names></name>
+        <name><surname>Abdalati</surname><given-names>Waleed</given-names></name>
+      </person-group>
+      <article-title>Antarctic supraglacial lake detection using landsat 8 and sentinel-2 imagery: Towards continental generation of lake volumes</article-title>
+      <source>Remote Sensing</source>
+      <year iso-8601-date="2020">2020</year>
+      <volume>12</volume>
+      <issue>1</issue>
+      <issn>2072-4292</issn>
+      <pub-id pub-id-type="doi">10.3390/rs12010134</pub-id>
+      <fpage>134</fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-data.table_2026">
+    <element-citation publication-type="book">
+      <person-group person-group-type="author">
+        <name><surname>Barrett</surname><given-names>Tyson</given-names></name>
+        <name><surname>Dowle</surname><given-names>Matt</given-names></name>
+        <name><surname>Srinivasan</surname><given-names>Arun</given-names></name>
+        <name><surname>Gorecki</surname><given-names>Jan</given-names></name>
+        <name><surname>Chirico</surname><given-names>Michael</given-names></name>
+        <name><surname>Hocking</surname><given-names>Toby</given-names></name>
+        <name><surname>Schwendinger</surname><given-names>Benjamin</given-names></name>
+        <name><surname>Krylov</surname><given-names>Ivan</given-names></name>
+      </person-group>
+      <source>Data.table: Extension of ‘data.frame‘</source>
+      <year iso-8601-date="2026">2026</year>
+      <uri>https://r-datatable.com</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-R_2021">
+    <element-citation publication-type="book">
+      <person-group person-group-type="author">
+        <string-name>R Core Team</string-name>
+      </person-group>
+      <source>R: A language and environment for statistical computing</source>
+      <publisher-name>R Foundation for Statistical Computing</publisher-name>
+      <publisher-loc>Vienna, Austria</publisher-loc>
+      <year iso-8601-date="2021">2021</year>
+      <uri>https://www.R-project.org/</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-sf_2018-009">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Pebesma</surname><given-names>Edzer</given-names></name>
+      </person-group>
+      <article-title>The r journal: Simple features for r: Standardized support for spatial vector data</article-title>
+      <source>The R Journal</source>
+      <year iso-8601-date="2018">2018</year>
+      <volume>10</volume>
+      <issn>2073-4859</issn>
+      <pub-id pub-id-type="doi">10.32614/RJ-2018-009</pub-id>
+      <fpage>439</fpage>
+      <lpage>446</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-Kern_László_2010">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Kern</surname><given-names>Zoltán</given-names></name>
+        <name><surname>László</surname><given-names>Péter</given-names></name>
+      </person-group>
+      <article-title>Size specific steady-state accumulation-area ratio: An improvement for equilibrium-line estimation of small palaeoglaciers</article-title>
+      <source>Special Theme: Case Studies of Neodymium Isotopes in Paleoceanography</source>
+      <year iso-8601-date="2010">2010</year>
+      <volume>29</volume>
+      <issue>19</issue>
+      <issn>0277-3791</issn>
+      <pub-id pub-id-type="doi">10.1016/j.quascirev.2010.06.033</pub-id>
+      <fpage>2781</fpage>
+      <lpage>2787</lpage>
+    </element-citation>
+  </ref>
+</ref-list>
+</back>
+
+
+</article>
