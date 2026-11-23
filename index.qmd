@@ -37,11 +37,12 @@ abstract: |
 plain-language-summary: |
   
 key-points:
-  - Long term AAR values were calculated for 3,400 Greenland peripheral glaciers using machine learning classification on more than 4.6 million Landsat images from 2015-2025.
-  - The AAR of Greenland peripheral glaciers is highly regionally dependent, with regional averages varying from 0.31 to 0.61.
-  - From 2000 to 2025 these glaciers lost 12% of their ice area (4,637 km²).
-  - Across Greenland, AAR values are highly correlated with median elevation (+), aspect (-), and latitude (-), with slope (+), area (+), and longitude (+) as lesser factors.
-  - Across Greenland, northward facing glaciers are more out of balance than southward facing glaciers. 
+  - Long term mean accumulation area ratio $\overline{AAR}$ values were calculated for 3,679 Greenland peripheral glaciers using machine learning classification on more than 20,000 Landsat images from 2015-2025, resulting in ~4.6 M glacier observations.
+  - The mean $\overline{AAR}$ of Greenland peripheral glaciers is 0.5 and is highly regionally dependent, with regional averages varying from 0.34 (north) to 0.61 (central east).
+  - $\overline{AAR}$ is moderately correlated with median elevation (r = 0.48), aspect (-0.31), and latitude (-0.23). Weaker, but statistically significant correlations, are observed for slope (0.17), area (0.12), and longitude (0.09).
+  - As of 2025, these glaciers have lost 12% of their ~2000 glacier area (4,665 km²).
+  - An additional 10% committed area loss (3,655 km²) is projected due to imballance with current climate, with considerable regional variation.
+
 date: last-modified
 bibliography: references.bib
 # citation:  # Self citation
@@ -95,6 +96,8 @@ acronyms:
     - shortname: SW
       longname: south west
 ---
+
+![Quantifying Climate Disequilibrium and Committed Retreat of Greenland’s Peripheral Glaciers Using Landsat-Derived Accumulation Area Ratios.](images/Layout_small.jpg){#fig-poster-small fig-alt="AGU 2026 poster by Zalesky et al."}
 
 ## Methods {#sec-methods}
 ### Model Training and Validation {#sec-training}

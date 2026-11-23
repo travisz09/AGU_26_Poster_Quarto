@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,7 +11,7 @@
 <meta name="author" content="Alli N Cramer">
 <meta name="author" content="Jiwei Li">
 <meta name="author" content="Laura Larocca">
-<meta name="dcterms.date" content="2026-11-21">
+<meta name="dcterms.date" content="2026-11-23">
 <meta name="keywords" content="Glacier Mass Balance, Accumulation Area Ratio, Landsat, Remote Sensing, Machine Learning, Landcover Classification, AGU 2026">
 
 <title>Quantifying Climate Disequilibrium and Committed Retreat of Greenland’s Peripheral Glaciers Using Landsat-Derived Accumulation Area Ratios – AGU 2026 Poster Supplemental</title>
@@ -58,15 +58,14 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1d4f84655f446305ac42a8f1abcf7405.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-991b1886d3c685c7aa2b62b80640c7af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -115,7 +114,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -219,7 +218,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 21, 2026</p>
+      <p class="date">November 23, 2026</p>
     </div>
   </div>
   
@@ -237,12 +236,22 @@ window.Quarto = {
 </header>
 
 
+<div id="fig-poster-small" class="quarto-float quarto-figure quarto-figure-center anchored" alt="AGU 2026 poster by Zalesky et al.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-poster-small-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Layout_small.jpg" class="img-fluid figure-img" alt="AGU 2026 poster by Zalesky et al.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poster-small-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Quantifying Climate Disequilibrium and Committed Retreat of Greenland’s Peripheral Glaciers Using Landsat-Derived Accumulation Area Ratios.
+</figcaption>
+</figure>
+</div>
 <section id="sec-methods" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="sec-methods"><span class="header-section-number">1</span> Methods</h2>
 <section id="sec-training" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="sec-training"><span class="header-section-number">1.1</span> Model Training and Validation</h3>
 <p>Machine learning (ML) classification of Landsat images was based on a modified version of methods published by <span class="citation" data-cites="Aberle_Enderlin_2025">Aberle et al. (<a href="#ref-Aberle_Enderlin_2025" role="doc-biblioref">2025</a>)</span>. Initial training data (labeled points and images) was acquired courtesy of Aberle et al.&nbsp;for 4 USGS Benchmark glaciers (Gulkana, South Cascade, Sperry, and Wolverine) across 7 Landsat images, for a total of 8,162 training points. These labeled training points were augmented with an additional 2,650 training points within Greenland, for a combined total of 10,812 training points. For Greenland training data, two locations were chosen, Mittivakkat glacier in south-east Greenland, and a heavily glaciated rocky peninsula in west-central Greenland (72°N, 54°W; north of Disko Island). Additionally, the “cloud” class was added to the list of 5 landcover types from <span class="citation" data-cites="Aberle_Enderlin_2025">Aberle et al. (<a href="#ref-Aberle_Enderlin_2025" role="doc-biblioref">2025</a>)</span>, bringing the total number of land cover classifications to 6, “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and “water”.</p>
-<p>Surface reflectance Landsat 8 &amp; 9 images were acquired for each of these training locations/dates via Google Earth Engine (GEE). Where multiple Landsat images overlapped within a 1-hour window for a single glacier (i.e.&nbsp;successive Landsat rows), images were merged using a median pixel value, as described by <span class="citation" data-cites="Aberle_Enderlin_2025">Aberle et al. (<a href="#ref-Aberle_Enderlin_2025" role="doc-biblioref">2025</a>)</span>. For each training image five spectral indices were calculated to aid in image classification: Normalized Difference Snow Index (NDSI), Normalized Difference Glacier Index (NDGI), Normalized Difference Water Index (NDWI), Normalized SWIR Difference Soil-moisture (NSDS), and Normalized Difference Vegetation Index (NDVI) (Equations <a href="#eq-ndsi" class="quarto-xref">1</a> to <a href="#eq-ndvi" class="quarto-xref">5</a>). Each of these indices was tested individually and in combination with the other bands/indices and was found to aid separation of one or more of the landcover classes of interest. Surface reflectance, surface temperature, and all 5 spectral indices data were extracted from pixel data at each of the labeled training data points (Figures <a href="#fig-fingerprint-SR" class="quarto-xref">1</a> &amp; <a href="#fig-fingerprint-indeices" class="quarto-xref">2</a>).</p>
+<p>Surface reflectance Landsat 8 &amp; 9 images were acquired for each of these training locations/dates via Google Earth Engine (GEE). Where multiple Landsat images overlapped within a 1-hour window for a single glacier (i.e.&nbsp;successive Landsat rows), images were merged using a median pixel value, as described by <span class="citation" data-cites="Aberle_Enderlin_2025">Aberle et al. (<a href="#ref-Aberle_Enderlin_2025" role="doc-biblioref">2025</a>)</span>. For each training image five spectral indices were calculated to aid in image classification: Normalized Difference Snow Index (NDSI), Normalized Difference Glacier Index (NDGI), Normalized Difference Water Index (NDWI), Normalized SWIR Difference Soil-moisture (NSDS), and Normalized Difference Vegetation Index (NDVI) (Equations <a href="#eq-ndsi" class="quarto-xref">1</a> to <a href="#eq-ndvi" class="quarto-xref">5</a>). Each of these indices was tested individually and in combination with the other bands/indices and was found to aid separation of one or more of the landcover classes of interest. Surface reflectance, surface temperature, and all 5 spectral indices data were extracted from pixel data at each of the labeled training data points (Figures <a href="#fig-fingerprint-SR" class="quarto-xref">2</a> &amp; <a href="#fig-fingerprint-indeices" class="quarto-xref">3</a>).</p>
 <p><span id="eq-ndsi"><span class="math display">\[
   NDSI = \frac{green - SWIR_1}{green + SWIR_1} = \frac{SR\_B3 - SR\_B6}{SR\_B3 + SR\_B6}
 \tag{1}\]</span></span> <span id="eq-ndgi"><span class="math display">\[
@@ -260,7 +269,7 @@ window.Quarto = {
 <img src="images/SpectralFingerprint_SR_ST.png" class="img-fluid figure-img" alt="Spectral fingerprint boxplot">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fingerprint-SR-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: The spectral fingerprint of surface reflectance and surface temperature for Landsat 8/9 images across 6 surface cover classes “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and “water”.
+Figure&nbsp;2: The spectral fingerprint of surface reflectance and surface temperature for Landsat 8/9 images across 6 surface cover classes “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and “water”.
 </figcaption>
 </figure>
 </div>
@@ -270,7 +279,7 @@ Figure&nbsp;1: The spectral fingerprint of surface reflectance and surface tempe
 <img src="images/SpectralFingerprint_Indicies.png" class="img-fluid figure-img" alt="Spectral fingerprint boxplot">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fingerprint-indeices-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: The spectral fingerprint of five calculated indices, Normalized Difference Snow Index (NDSI), Normalized Difference Glacier Index (NDGI), Normalized Difference Water Index (NDWI), Normalized SWIR Difference Soil-moisture (NSDS), and Normalized Difference Vegetation Index (NDVI) from Landsat 8/9 images across 6 surface cover classes “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and “water”.
+Figure&nbsp;3: The spectral fingerprint of five calculated indices, Normalized Difference Snow Index (NDSI), Normalized Difference Glacier Index (NDGI), Normalized Difference Water Index (NDWI), Normalized SWIR Difference Soil-moisture (NSDS), and Normalized Difference Vegetation Index (NDVI) from Landsat 8/9 images across 6 surface cover classes “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and “water”.
 </figcaption>
 </figure>
 </div>
@@ -317,18 +326,18 @@ Table&nbsp;1: The hyperparameters and testing accuracy for the three best perfor
 <img src="images/training-locations.jpg" class="img-fluid figure-img" alt="Map of Greenland">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-training-location-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Locations of training/testing and validation datasets across Greenland, with labeled regions. For locations with both training and validation data the validation data was at least one year temporally distant from the training data. World Glacier Monitoring Service Benchmark Glaciers Mittivakkat and Freya labeled.
+Figure&nbsp;4: Locations of training/testing and validation datasets across Greenland, with labeled regions. For locations with both training and validation data the validation data was at least one year temporally distant from the training data. World Glacier Monitoring Service Benchmark Glaciers Mittivakkat and Freya labeled.
 </figcaption>
 </figure>
 </div>
-<p>The three best performing ML models were retrained using 100% of the available training data (10,812 labeled points) and were further validated on previously unseen data. The overall accuracy of all models decreased between 1-8% from their prior K-folds accuracy but maintained a satisfactory ovrall accuracy. The best performing model on the validation data was the SVM linear model, with an overall accuracy of 93% (<a href="#fig-confusion" class="quarto-xref">Figure&nbsp;4</a>). The F1 statistic (a measure of model performance) was 94% for snow and 91% for ice, the two most critical classes for accurate Accumulation Area Ratio (AAR) calculation.</p>
+<p>The three best performing ML models were retrained using 100% of the available training data (10,812 labeled points) and were further validated on previously unseen data. The overall accuracy of all models decreased between 1-8% from their prior K-folds accuracy but maintained a satisfactory ovrall accuracy. The best performing model on the validation data was the SVM linear model, with an overall accuracy of 93% (<a href="#fig-confusion" class="quarto-xref">Figure&nbsp;5</a>). The F1 statistic (a measure of model performance) was 94% for snow and 91% for ice, the two most critical classes for accurate Accumulation Area Ratio (AAR) calculation.</p>
 <div id="fig-confusion" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-alg="A confusion matrix of prediction accuracy">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/confusion-matrix-table.jpg" class="img-fluid figure-img" data-fig-alg="A confusion matrix of prediction accuracy">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Glacier surface classification confusion matrix for the validated surface vector machine learner with linerar kernel across 6 surface cover classes, normalized as a frcation of total validation points, color coded by accuracy.
+Figure&nbsp;5: Glacier surface classification confusion matrix for the validated surface vector machine learner with linerar kernel across 6 surface cover classes, normalized as a frcation of total validation points, color coded by accuracy.
 </figcaption>
 </figure>
 </div>
@@ -358,14 +367,14 @@ Transient\:AAR = \frac{Total\:Snow\:Area}{Total\:Glacier\:Area}
 <section id="sec-QC" class="level4" data-number="1.3.1">
 <h4 data-number="1.3.1" class="anchored" data-anchor-id="sec-QC"><span class="header-section-number">1.3.1</span> Quality Control and Data Filtering</h4>
 <p>A variety of quality control and filtering steps were utilizedTo ensure that appropriate annual (end-of-season) AAR values were identified from the transient AAR dataset. First, glacier observations were filtered by their calculated glacier area. Then they were filtered by cloud cover, shadowed snow ratio, glacier size, glacier slope, and finally by date.</p>
-<p>The first observation filtering process leveraged the glacier area to identify and screen poorly classified images. The glacier area is calculated according to <a href="#eq-glacier-area" class="quarto-xref">Equation&nbsp;7</a>, and the glacier area ratio is standardized by dividing the glacier area by its RGI glacier extent (circa 2000). Ideally, throughout the ablation season, the glacier area ratio is expected to vary smoothly from ~1 (spring; fully snow covered) to some minimum value (late summer; exposed ice and rock near terminous), followed by a rapid rebound (end of ablation; onset of seasonal snowfall). In practice a combination of cloudy images and poor image classification can drive the glacier area ratio down. To screen these poor-quality images a loess function was fit to the glacier area ratio data for each glacier-year. The residuals were calculated for each glacier observation, and observations with residuals &lt; the 25<sup>th</sup> percentile per glacier-year were filtered out (<a href="#fig-loess" class="quarto-xref">Figure&nbsp;5</a>).</p>
+<p>The first observation filtering process leveraged the glacier area to identify and screen poorly classified images. The glacier area is calculated according to <a href="#eq-glacier-area" class="quarto-xref">Equation&nbsp;7</a>, and the glacier area ratio is standardized by dividing the glacier area by its RGI glacier extent (circa 2000). Ideally, throughout the ablation season, the glacier area ratio is expected to vary smoothly from ~1 (spring; fully snow covered) to some minimum value (late summer; exposed ice and rock near terminous), followed by a rapid rebound (end of ablation; onset of seasonal snowfall). In practice a combination of cloudy images and poor image classification can drive the glacier area ratio down. To screen these poor-quality images a loess function was fit to the glacier area ratio data for each glacier-year. The residuals were calculated for each glacier observation, and observations with residuals &lt; the 25<sup>th</sup> percentile per glacier-year were filtered out (<a href="#fig-loess" class="quarto-xref">Figure&nbsp;6</a>).</p>
 <div id="fig-loess" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatterplot">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-loess-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/Mitt_2024_FAR_filter.png" class="img-fluid figure-img" alt="Scatterplot">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loess-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Graphical representation of the glacier area ratio, glacier observation filtering process for Mittivakkat glacier, 2024. A loess smoothing function (black line) is fit to the dataset. Glacier observations with a model residual &lt; the 25<sup>th</sup> percentile are removed (open red circles). All other datapoints are retained (green points).
+Figure&nbsp;6: Graphical representation of the glacier area ratio, glacier observation filtering process for Mittivakkat glacier, 2024. A loess smoothing function (black line) is fit to the dataset. Glacier observations with a model residual &lt; the 25<sup>th</sup> percentile are removed (open red circles). All other datapoints are retained (green points).
 </figcaption>
 </figure>
 </div>
@@ -432,14 +441,14 @@ Table&nbsp;2: Quality control filters applied to the transient AAR dataset.
 </section>
 <section id="sec-observation-density" class="level3" data-number="1.4">
 <h3 data-number="1.4" class="anchored" data-anchor-id="sec-observation-density"><span class="header-section-number">1.4</span> Glacier-Year Observation Density Sensitivity Analysis</h3>
-<p>To quantify the number of quality images needed for accurate identification of the AAR, an observational density experiment was performed. Twenty-one well-observed glacier-years were identified, evenly distributed around Greenland, each with at least 30 quality glacier observations (post filtering). For each glacier a series of subseting experiments was performed where n randomly selected points were subset from the glacier-year data. Using the randomly subset data, the assumed AAR was selected and compared against the actual (known) AAR from the full dataset. The n observations tested were 3, 5, 7, 9, 12, 15, 20, 25, 30, and each experiment was repeated 100 times, for a total of 18,900 simulations <a href="#fig-obs-dense" class="quarto-xref">Figure&nbsp;6</a>. Based on the resultus of these simulations, at least 9 quality observations per year are needed to reliably identify the AAR <a href="#tbl-obs-dense" class="quarto-xref">Table&nbsp;3</a>.</p>
+<p>To quantify the number of quality images needed for accurate identification of the AAR, an observational density experiment was performed. Twenty-one well-observed glacier-years were identified, evenly distributed around Greenland, each with at least 30 quality glacier observations (post filtering). For each glacier a series of subseting experiments was performed where n randomly selected points were subset from the glacier-year data. Using the randomly subset data, the assumed AAR was selected and compared against the actual (known) AAR from the full dataset. The n observations tested were 3, 5, 7, 9, 12, 15, 20, 25, 30, and each experiment was repeated 100 times, for a total of 18,900 simulations <a href="#fig-obs-dense" class="quarto-xref">Figure&nbsp;7</a>. Based on the resultus of these simulations, at least 9 quality observations per year are needed to reliably identify the AAR <a href="#tbl-obs-dense" class="quarto-xref">Table&nbsp;3</a>.</p>
 <div id="fig-obs-dense" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Violin plot with points.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-obs-dense-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/observation_density.png" class="img-fluid figure-img" alt="Violin plot with points.">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-obs-dense-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Sensitivity of the AAR to the number of quality observations in the dataset. Observations are randomly subset from a selection of well observed glacier-years with at least 30 quality observations. Violin plots with jittered partially transparent points represent the density of the experimental AAR error relative to the known value.
+Figure&nbsp;7: Sensitivity of the AAR to the number of quality observations in the dataset. Observations are randomly subset from a selection of well observed glacier-years with at least 30 quality observations. Violin plots with jittered partially transparent points represent the density of the experimental AAR error relative to the known value.
 </figcaption>
 </figure>
 </div>
@@ -511,41 +520,41 @@ Table&nbsp;3: Mean and median AAR error rates for the observation density sensit
 </section>
 <section id="sec-aar0" class="level3" data-number="1.5">
 <h3 data-number="1.5" class="anchored" data-anchor-id="sec-aar0"><span class="header-section-number">1.5</span> Equilibrium AAR and Committed Area Loss</h3>
-<p>Equilibrium AAR (AAR<sub>0</sub>) values were given by <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span>. Disequalibrium (<span class="math inline">\(\alpha\)</span>) and committed area loss (<span class="math inline">\(\Delta\)</span>A) were calculated according to <span class="citation" data-cites="Box_Hubbard_2022">Box et al. (<a href="#ref-Box_Hubbard_2022" role="doc-biblioref">2022</a>)</span>. The <span class="math inline">\(\Delta\)</span>A values varried considerably by region, with the central east (CE), north east (NE), south west (SW) all showing positive committed area change (i.e., committed growth). Furthermore, while the resulting <span class="math inline">\(\Delta\)</span>A values are approximately centered on 0 (median = -0.26 km<sup>2</sup>) the distribution is not normal (<a href="#fig-delta-a-dist" class="quarto-xref">Figure&nbsp;7</a>). Rather, the distribution is highly leptokurtic, with a slight positive skew. This indicates that, while most glaciers are near their predicted equilibrium value, the distribution is highly dominated by outliers on either side.</p>
+<p>Equilibrium AAR (AAR<sub>0</sub>) values were given by <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span>. Disequalibrium (<span class="math inline">\(\alpha\)</span>) and committed area loss (<span class="math inline">\(\Delta\)</span>A) were calculated according to <span class="citation" data-cites="Box_Hubbard_2022">Box et al. (<a href="#ref-Box_Hubbard_2022" role="doc-biblioref">2022</a>)</span>. The <span class="math inline">\(\Delta\)</span>A values varried considerably by region, with the central east (CE), north east (NE), south west (SW) all showing positive committed area change (i.e., committed growth). Furthermore, while the resulting <span class="math inline">\(\Delta\)</span>A values are approximately centered on 0 (median = -0.26 km<sup>2</sup>) the distribution is not normal (<a href="#fig-delta-a-dist" class="quarto-xref">Figure&nbsp;8</a>). Rather, the distribution is highly leptokurtic, with a slight positive skew. This indicates that, while most glaciers are near their predicted equilibrium value, the distribution is highly dominated by outliers on either side.</p>
 <div id="fig-delta-a-dist" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A histogram">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-delta-a-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/delta_A_dist.png" class="img-fluid figure-img" alt="A histogram">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-delta-a-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: The highly leptokurtic distribution of committed area change calculated using AAR<sub>0</sub> values by <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span>
+Figure&nbsp;8: The highly leptokurtic distribution of committed area change calculated using AAR<sub>0</sub> values by <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span>
 </figcaption>
 </figure>
 </div>
 <section id="sec-delta-a-sensitivity" class="level4" data-number="1.5.1">
 <h4 data-number="1.5.1" class="anchored" data-anchor-id="sec-delta-a-sensitivity"><span class="header-section-number">1.5.1</span> Committed Area Loss Sensitivity Analysis</h4>
-<p>To further investigate the <span class="math inline">\(\Delta\)</span>A results we conducted a sensitivity analysis for a range of plausible AAR<sub>0</sub> values, from 0.5 to 0.8, for each region individually as well as for Greenland as a whole (<a href="#fig-delta-a-sensitivity" class="quarto-xref">Figure&nbsp;8</a>). While most regions exhibited relatively low sensitivity to AAR<sub>0</sub> values, the NE and CE were both highly sensitive to a wide range of AAR<sub>0</sub> values. Additionally, the SW was moderatly sensitive to AAR<sub>0</sub> values between 0.5 and 0.6. Importantly, these are also the three regions which indicate potential glacier growth. Therefore, small differences in either <span class="math inline">\(\overline{AAR}\)</span> or AAR<sub>0</sub> in any of these regions would result in relatively large changes to <span class="math inline">\(\Delta\)</span>A. Additionally, while the CE continues to show positive <span class="math inline">\(\Delta\)</span>A values up to AAR<sub>0</sub> ≈ 0.68, the <span class="math inline">\(\Delta\)</span>A for the NE crossess 0 at AAR<sub>0</sub> ≈ 0.58 a difference of just 0.02 relative to the <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span> data.</p>
+<p>To further investigate the <span class="math inline">\(\Delta\)</span>A results we conducted a sensitivity analysis for a range of plausible AAR<sub>0</sub> values, from 0.5 to 0.8, for each region individually as well as for Greenland as a whole (<a href="#fig-delta-a-sensitivity" class="quarto-xref">Figure&nbsp;9</a>). While most regions exhibited relatively low sensitivity to AAR<sub>0</sub> values, the NE and CE were both highly sensitive to a wide range of AAR<sub>0</sub> values. Additionally, the SW was moderatly sensitive to AAR<sub>0</sub> values between 0.5 and 0.6. Importantly, these are also the three regions which indicate potential glacier growth. Therefore, small differences in either <span class="math inline">\(\overline{AAR}\)</span> or AAR<sub>0</sub> in any of these regions would result in relatively large changes to <span class="math inline">\(\Delta\)</span>A. Additionally, while the CE continues to show positive <span class="math inline">\(\Delta\)</span>A values up to AAR<sub>0</sub> ≈ 0.68, the <span class="math inline">\(\Delta\)</span>A for the NE crossess 0 at AAR<sub>0</sub> ≈ 0.58 a difference of just 0.02 relative to the <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span> data.</p>
 <div id="fig-delta-a-sensitivity" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A line plot">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-delta-a-sensitivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/delta_A_sensitivity.png" class="img-fluid figure-img" alt="A line plot">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-delta-a-sensitivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: Sensitivity of committed area loss to a range of plausible equilibrium AAR values. Thick lines color coded by region, thin black line for all Greenland. Steeper lines indicate greater sensitivity.
+Figure&nbsp;9: Sensitivity of committed area loss to a range of plausible equilibrium AAR values. Thick lines color coded by region, thin black line for all Greenland. Steeper lines indicate greater sensitivity.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="review-of-yang-et-al.-methods-and-accuracy-within-greenland" class="level4" data-number="1.5.2">
 <h4 data-number="1.5.2" class="anchored" data-anchor-id="review-of-yang-et-al.-methods-and-accuracy-within-greenland"><span class="header-section-number">1.5.2</span> Review of Yang et al.&nbsp;Methods and Accuracy within Greenland</h4>
-<p>While the <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span> data is laudible, and one of the only glacier-specific AAR<sub>0</sub> datasets available, it may not be well suited for use in Greenland. For example, consider this large glacier in the north west (NW) (RGI2000-v7.0-G-05-00250; <a href="#fig-glacier" class="quarto-xref">Figure&nbsp;9</a>). This glacier is the most extreme example of a positive <span class="math inline">\(\Delta\)</span>A in the dataset. With an <span class="math inline">\(\overline{AAR}\)</span> of 0.63 and a realized area loss of &lt; 2% from circa 2020 to 2025 this glacier appears to be relatively healthy. However, the <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span> data list the AAR<sub>0</sub> for this glacier as 0.45, a shockingly low estimate. In fact, of the top 10 most positive <span class="math inline">\(\Delta\)</span>A glaciers in our data, 7 of them have AAR<sub>0</sub> values &lt; 0.5 (the losest tested theoretical AAR<sub>0</sub> value in our sensitivity analysis). Global paleio-climate AAR<sub>0</sub> estimates are typically estimated as 0.58, therefore, values below 0.5 are quite low. Additionally, ice caps typically have larger AAR<sub>0</sub> values, relative to equivalent mountain glaciers <span class="citation" data-cites="Yang_Mackintosh_2026 Kern_László_2010">(<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">Yang et al. 2026</a>; <a href="#ref-Kern_László_2010" role="doc-biblioref">Kern and László 2010</a>)</span>.</p>
+<p>While the <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span> data is laudible, and one of the only glacier-specific AAR<sub>0</sub> datasets available, it may not be well suited for use in Greenland. For example, consider this large glacier in the north west (NW) (RGI2000-v7.0-G-05-00250; <a href="#fig-glacier" class="quarto-xref">Figure&nbsp;10</a>). This glacier is the most extreme example of a positive <span class="math inline">\(\Delta\)</span>A in the dataset. With an <span class="math inline">\(\overline{AAR}\)</span> of 0.63 and a realized area loss of &lt; 2% from circa 2020 to 2025 this glacier appears to be relatively healthy. However, the <span class="citation" data-cites="Yang_Mackintosh_2026">Yang et al. (<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">2026</a>)</span> data list the AAR<sub>0</sub> for this glacier as 0.45, a shockingly low estimate. In fact, of the top 10 most positive <span class="math inline">\(\Delta\)</span>A glaciers in our data, 7 of them have AAR<sub>0</sub> values &lt; 0.5 (the losest tested theoretical AAR<sub>0</sub> value in our sensitivity analysis). Global paleio-climate AAR<sub>0</sub> estimates are typically estimated as 0.58, therefore, values below 0.5 are quite low. Additionally, ice caps typically have larger AAR<sub>0</sub> values, relative to equivalent mountain glaciers <span class="citation" data-cites="Yang_Mackintosh_2026 Kern_László_2010">(<a href="#ref-Yang_Mackintosh_2026" role="doc-biblioref">Yang et al. 2026</a>; <a href="#ref-Kern_László_2010" role="doc-biblioref">Kern and László 2010</a>)</span>.</p>
 <div id="fig-glacier" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A large glacier, part of a ice cap (a.k.a. a glacier complex)">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-glacier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/Yang_example.png" class="img-fluid figure-img" alt="A large glacier, part of a ice cap (a.k.a. a glacier complex)">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-glacier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Glacier RGI2000-v7.0-G-05-00250, 07/16/2022, located in the NW, part of a larger ice cap. <span class="math inline">\(\overline{AAR}\)</span> = 0.63, presumed AAR<sub>0</sub> = 0.45, shown here at the end of the 2022 ablation season, AAR<sub>2022</sub> = 0.45 (the lowest observed annual AAR in the dataset).
+Figure&nbsp;10: Glacier RGI2000-v7.0-G-05-00250, 07/16/2022, located in the NW, part of a larger ice cap. <span class="math inline">\(\overline{AAR}\)</span> = 0.63, presumed AAR<sub>0</sub> = 0.45, shown here at the end of the 2022 ablation season, AAR<sub>2022</sub> = 0.45 (the lowest observed annual AAR in the dataset).
 </figcaption>
 </figure>
 </div>
@@ -646,14 +655,13 @@ Yang, Weilin, Andrew N. Mackintosh, Emma-Louise Cooper, Yingkui Li, Richard S. J
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -668,7 +676,7 @@ Yang, Weilin, Andrew N. Mackintosh, Emma-Louise Cooper, Yingkui Li, Richard S. J
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/travisz09\.github\.io\/AGU_26_Poster_Quarto\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
