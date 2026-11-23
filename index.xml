@@ -126,6 +126,12 @@ Natural Sciences</institution>
 </front>
 
 <body>
+<fig id="fig-poster-small">
+  <caption><p>Figure 1: Quantifying Climate Disequilibrium and Committed
+  Retreat of Greenland’s Peripheral Glaciers Using Landsat-Derived
+  Accumulation Area Ratios.</p></caption>
+  <graphic mimetype="image" mime-subtype="jpeg" xlink:href="images/Layout_small.jpg" />
+</fig>
 <sec id="sec-methods">
   <title>1 Methods</title>
   <sec id="sec-training">
@@ -133,17 +139,17 @@ Natural Sciences</institution>
     <p>Machine learning (ML) classification of Landsat images was based
     on a modified version of methods published by Aberle et al.
     (<xref alt="2025" rid="ref-Aberle_Enderlin_2025" ref-type="bibr">2025</xref>).
-    Initial training data (labeled points and images) was acquired
+    Initial training data in the form of manually labeled glacier
+    surface cover points and corresponding Landsat images were acquired
     courtesy of Aberle et al. for 4 USGS Benchmark glaciers (Gulkana,
     South Cascade, Sperry, and Wolverine) across 7 Landsat images, for a
     total of 8,162 training points. These labeled training points were
     augmented with an additional 2,650 training points within Greenland,
     for a combined total of 10,812 training points. For Greenland
-    training data, two locations were chosen, Mittivakkat glacier in
-    south-east Greenland, and a heavily glaciated rocky peninsula in
-    west-central Greenland (72°N, 54°W; north of Disko Island).
-    Additionally, the “cloud” class was added to the list of 5 landcover
-    types from Aberle et al.
+    training data, two locations were chosen, Mittivakkat glacier in the
+    south east, and a heavily glaciated rocky peninsula in the central
+    west (72°N, 54°W; north of Disko Island). Additionally, the “cloud”
+    class was added to the list of 5 landcover types from Aberle et al.
     (<xref alt="2025" rid="ref-Aberle_Enderlin_2025" ref-type="bibr">2025</xref>),
     bringing the total number of land cover classifications to 6,
     “cloud”, “ice/firn”, “rock”, “shadowed snow”, “snow”, and
@@ -156,58 +162,62 @@ Natural Sciences</institution>
     by Aberle et al.
     (<xref alt="2025" rid="ref-Aberle_Enderlin_2025" ref-type="bibr">2025</xref>).
     For each training image five spectral indices were calculated to aid
-    in image classification: Normalized Difference Snow Index (NDSI),
-    Normalized Difference Glacier Index (NDGI),
-    Normalized Difference Water Index (NDWI),
-    Normalized SWIR Difference Soil-moisture (NSDS), and
-    Normalized Difference Vegetation Index (NDVI) (Equations
-    <xref alt="1" rid="eq-ndsi">1</xref> to
-    <xref alt="5" rid="eq-ndvi">5</xref>). Each of these indices was
+    in image classification: Normalized Difference Glacier Index (NDGI),
+    Normalized Difference Snow Index (NDSI),
+    Normalized Difference Vegetation Index (NDVI),
+    Normalized Difference Water Index (NDWI), and
+    Normalized SWIR Difference Soil-moisture (NSDS) (Equations
+    <xref alt="1" rid="eq-ndgi">1</xref> to
+    <xref alt="5" rid="eq-nsds">5</xref>). Each of these indices was
     tested individually and in combination with the other bands/indices
     and was found to aid separation of one or more of the landcover
     classes of interest. Surface reflectance, surface temperature, and
     all 5 spectral indices data were extracted from pixel data at each
     of the labeled training data points (Figures
-    <xref alt="1" rid="fig-fingerprint-SR">1</xref> &amp;
-    <xref alt="2" rid="fig-fingerprint-indeices">2</xref>).</p>
+    <xref alt="2" rid="fig-fingerprint-SR">2</xref> &amp;
+    <xref alt="3" rid="fig-fingerprint-indeices">3</xref>).</p>
+    <p><styled-content id="eq-ndgi"><disp-formula><alternatives>
+    <tex-math><![CDATA[
+      NDGI = \frac{green - red}{green + red}
+     \qquad(1)]]></tex-math>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>G</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>−</mml:mo><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi></mml:mrow><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>+</mml:mo><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>1</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
     <p><styled-content id="eq-ndsi"><disp-formula><alternatives>
     <tex-math><![CDATA[
-      NDSI = \frac{green - SWIR_1}{green + SWIR_1} = \frac{SR\_B3 - SR\_B6}{SR\_B3 + SR\_B6}
-     \qquad(1)]]></tex-math>
-    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>S</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>1</mml:mn></mml:msub></mml:mrow><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>1</mml:mn></mml:msub></mml:mrow></mml:mfrac><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>3</mml:mn><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>6</mml:mn></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>3</mml:mn><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>6</mml:mn></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>1</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content>
-    <styled-content id="eq-ndgi"><disp-formula><alternatives>
-    <tex-math><![CDATA[
-      NDGI = \frac{green - red}{green + red} = \frac{SR\_B3 - SR\_B4}{SR\_B3 + SR\_B4}
+      NDSI = \frac{green - SWIR_1}{green + SWIR_1}
      \qquad(2)]]></tex-math>
-    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>G</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>−</mml:mo><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi></mml:mrow><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>+</mml:mo><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi></mml:mrow></mml:mfrac><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>3</mml:mn><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>4</mml:mn></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>3</mml:mn><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>4</mml:mn></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>2</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content>
-    <styled-content id="eq-ndwi"><disp-formula><alternatives>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>S</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>1</mml:mn></mml:msub></mml:mrow><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>1</mml:mn></mml:msub></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>2</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+    <p><styled-content id="eq-ndvi"><disp-formula><alternatives>
     <tex-math><![CDATA[
-      NDWI = \frac{green - NIR}{green + NIR} = \frac{SR\_B3 - SR\_B5}{SR\_B3 + SR\_B5}
+      NDVI = \frac{NIR - red}{NIR + red}
      \qquad(3)]]></tex-math>
-    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>−</mml:mo><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>+</mml:mo><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi></mml:mrow></mml:mfrac><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>3</mml:mn><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>5</mml:mn></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>3</mml:mn><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>5</mml:mn></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>3</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content>
-    <styled-content id="eq-nsds"><disp-formula><alternatives>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>V</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi><mml:mo>−</mml:mo><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi></mml:mrow><mml:mrow><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi><mml:mo>+</mml:mo><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>3</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+    <p><styled-content id="eq-ndwi"><disp-formula><alternatives>
     <tex-math><![CDATA[
-      NSDS = \frac{SWIR_1 - SWIR_2}{SWIR_1 + SWIR_2} = \frac{SR\_B6 - SR\_B7}{SR\_B6 + SR\_B7}
+      NDWI = \frac{green - NIR}{green + NIR}
      \qquad(4)]]></tex-math>
-    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>S</mml:mi><mml:mi>D</mml:mi><mml:mi>S</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>1</mml:mn></mml:msub><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>2</mml:mn></mml:msub></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>1</mml:mn></mml:msub><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>2</mml:mn></mml:msub></mml:mrow></mml:mfrac><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>6</mml:mn><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>7</mml:mn></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>6</mml:mn><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>7</mml:mn></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>4</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content>
-    <styled-content id="eq-ndvi"><disp-formula><alternatives>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>−</mml:mo><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mrow><mml:mi>g</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>+</mml:mo><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>4</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+    <p><styled-content id="eq-nsds"><disp-formula><alternatives>
     <tex-math><![CDATA[
-      NDVI = \frac{NIR - red}{NIR + red} = \frac{SR\_B5 - SR\_B4}{SR\_B5 + SR\_B4}
+      NSDS = \frac{SWIR_1 - SWIR_2}{SWIR_1 + SWIR_2}
      \qquad(5)]]></tex-math>
-    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>V</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi><mml:mo>−</mml:mo><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi></mml:mrow><mml:mrow><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi><mml:mo>+</mml:mo><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>d</mml:mi></mml:mrow></mml:mfrac><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>5</mml:mn><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>4</mml:mn></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>5</mml:mn><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>R</mml:mi><mml:mi>_</mml:mi><mml:mi>B</mml:mi><mml:mn>4</mml:mn></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>5</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>S</mml:mi><mml:mi>D</mml:mi><mml:mi>S</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>1</mml:mn></mml:msub><mml:mo>−</mml:mo><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>2</mml:mn></mml:msub></mml:mrow><mml:mrow><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>1</mml:mn></mml:msub><mml:mo>+</mml:mo><mml:mi>S</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:msub><mml:mi>R</mml:mi><mml:mn>2</mml:mn></mml:msub></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>5</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
     <fig id="fig-fingerprint-SR">
-      <caption><p>Figure 1: The spectral fingerprint of surface
+      <caption><p>Figure 2: The spectral fingerprint of surface
       reflectance and surface temperature for Landsat 8/9 images across
       6 surface cover classes “cloud”, “ice/firn”, “rock”, “shadowed
-      snow”, “snow”, and “water”.</p></caption>
+      snow”, “snow”, and “water”. Band labels correspond to Landsat
+      Collection 2 Level-2 (surface reflectance) data product naming
+      conventions and represent “arosol”, “blue”, “green”, “red”, “NIR”,
+      “SWIR<sub>1</sub>”, “SWIR<sub>2</sub>”, and “thermal IR”
+      respectively.</p></caption>
       <graphic mimetype="image" mime-subtype="png" xlink:href="images/SpectralFingerprint_SR_ST.png" />
     </fig>
     <fig id="fig-fingerprint-indeices">
-      <caption><p>Figure 2: The spectral fingerprint of five calculated
-      indices, Normalized Difference Snow Index (NDSI), Normalized
-      Difference Glacier Index (NDGI), Normalized Difference Water Index
-      (NDWI), Normalized SWIR Difference Soil-moisture (NSDS), and
-      Normalized Difference Vegetation Index (NDVI) from Landsat 8/9
+      <caption><p>Figure 3: The spectral fingerprint of five calculated
+      indices, Normalized Difference Glacier Index (NDGI), Normalized
+      Difference Snow Index (NDSI), Normalized Difference Vegetation
+      Index (NDVI), Normalized Difference Water Index (NDWI), and
+      Normalized SWIR Difference Soil-moisture (NSDS) from Landsat 8/9
       images across 6 surface cover classes “cloud”, “ice/firn”, “rock”,
       “shadowed snow”, “snow”, and “water”.</p></caption>
       <graphic mimetype="image" mime-subtype="png" xlink:href="images/SpectralFingerprint_Indicies.png" />
@@ -226,7 +236,7 @@ Natural Sciences</institution>
     selected for additional model validation using previously unseen,
     spatially-temporally distant validation data. The top three, best
     performing models were, random forest, support vector machine (SVM)
-    using a linear kernel, and SVM with a radial kernel
+    using a radial kernel, and SVM with a linear kernel
     <xref alt="Table 1" rid="tbl-hyperparams">Table 1</xref>.</p>
     <fig id="tbl-hyperparams">
       <caption><p>Table 1: The hyperparameters and testing accuracy for
@@ -270,17 +280,17 @@ Natural Sciences</institution>
     5,750 Greenland-specific validation points for 5 locations, across 8
     Landsat images. These locations were chosen for validation to
     capture a range of regional variability across the island. The five
-    validation locations are, Mittivakkat glacier (3 dates/images),
-    central-west peninsula (2), southern tip (1), Freya glacier
-    (central-east, 1), and far north (1). (Validation point locator map
-    figure).</p>
+    validation locations are, Mittivakkat glacier (3 dates/images; south
+    east), north west peninsula (2), south east island (1; southern
+    tip), Freya glacier (1; north east), and north (1;
+    <xref alt="Figure 4" rid="fig-training-location">Figure 4</xref>).</p>
     <fig id="fig-training-location">
-      <caption><p>Figure 3: Locations of training/testing and validation
+      <caption><p>Figure 4: Locations of training/testing and validation
       datasets across Greenland, with labeled regions. For locations
-      with both training and validation data the validation data was at
-      least one year temporally distant from the training data. World
-      Glacier Monitoring Service Benchmark Glaciers Mittivakkat and
-      Freya labeled.</p></caption>
+      with both training and validation data the validation data was 39
+      months (3.2 years) temporally distant from the training data, on
+      average. World Glacier Monitoring Service Benchmark Glaciers
+      Mittivakkat and Freya labeled.</p></caption>
       <graphic mimetype="image" mime-subtype="jpeg" xlink:href="images/training-locations.jpg" />
     </fig>
     <p>The three best performing ML models were retrained using 100% of
@@ -290,12 +300,12 @@ Natural Sciences</institution>
     maintained a satisfactory ovrall accuracy. The best performing model
     on the validation data was the SVM linear model, with an overall
     accuracy of 93%
-    (<xref alt="Figure 4" rid="fig-confusion">Figure 4</xref>). The F1
+    (<xref alt="Figure 5" rid="fig-confusion">Figure 5</xref>). The F1
     statistic (a measure of model performance) was 94% for snow and 91%
     for ice, the two most critical classes for accurate
     Accumulation Area Ratio (AAR) calculation.</p>
     <fig id="fig-confusion">
-      <caption><p>Figure 4: Glacier surface classification confusion
+      <caption><p>Figure 5: Glacier surface classification confusion
       matrix for the validated surface vector machine learner with
       linerar kernel across 6 surface cover classes, normalized as a
       frcation of total validation points, color coded by
@@ -326,10 +336,10 @@ Natural Sciences</institution>
       (<xref alt="Jennewein et al. 2023" rid="ref-HPC_2023" ref-type="bibr">Jennewein
       et al. 2023</xref>). Raw Landsat images were initially converted
       to surface reflectance and surface temperature data using
-      established scaling factors for the OLI and TIRS instruments
-      respectively. Images were then masked to peripheral glaciers using
-      a buffered version of the Randolf Glacier Inventory (RGI) glacier
-      outlines
+      established scaling factors for the Operational Land Imager (OLI)
+      and Thermal Infrared Sensor (TIRS) instruments respectively.
+      Images were then masked to peripheral glaciers using a buffered
+      version of the Randolf Glacier Inventory (RGI) glacier outlines
       (<xref alt="RGI Consortium 2023" rid="ref-RGI_2023" ref-type="bibr">RGI
       Consortium 2023</xref>). A secondary cloud mask was applied based
       on a modified version of the Antarctic cloud mask developed by
@@ -339,12 +349,15 @@ Natural Sciences</institution>
       training dataset.</p>
       <p>Preprocessed images were classified according to the pretrained
       SVM (linear) model. For each classified image, glaciers with at
-      least 70% classification coverage were identified by a spatial
-      query with the image extent. For each of the glaciers identified
-      the surface area for each landcover class was extracted from the
-      classified image along with relevant image metadata. For each
-      glacier observation the transient AAR was calculated according to
-      equations <xref alt="6" rid="eq-snow-area">6</xref> to
+      least 70% classification coverage were identified from the RGI
+      data, by a spatial query with the classified image. For each of
+      the glaciers identified the surface area for each landcover class
+      was extracted from the classified image along with relevant image
+      metadata using the R sf package
+      (<xref alt="Pebesma 2018" rid="ref-sf_2018-009" ref-type="bibr">Pebesma
+      2018</xref>). For each glacier observation the transient AAR was
+      calculated according to equations
+      <xref alt="6" rid="eq-snow-area">6</xref> to
       <xref alt="8" rid="eq-trans-aar">8</xref>. Each glacier
       observation and associated calculations was appended to a data
       file, culminating in ~4.6 million glacier observations. This data
@@ -378,12 +391,12 @@ Natural Sciences</institution>
     2018</xref>).</p>
     <sec id="sec-QC">
       <title>1.3.1 Quality Control and Data Filtering</title>
-      <p>A variety of quality control and filtering steps were
-      utilizedTo ensure that appropriate annual (end-of-season) AAR
-      values were identified from the transient AAR dataset. First,
-      glacier observations were filtered by their calculated glacier
-      area. Then they were filtered by cloud cover, shadowed snow ratio,
-      glacier size, glacier slope, and finally by date.</p>
+      <p>A variety of quality control and filtering steps were utilized
+      to ensure that appropriate annual (end-of-season) AAR values were
+      identified from the transient AAR dataset. First, glacier
+      observations were filtered by their calculated glacier area. Then
+      they were filtered by cloud cover, shadowed snow ratio, glacier
+      size, glacier slope, and finally by date.</p>
       <p>The first observation filtering process leveraged the glacier
       area to identify and screen poorly classified images. The glacier
       area is calculated according to
@@ -401,15 +414,15 @@ Natural Sciences</institution>
       calculated for each glacier observation, and observations with
       residuals &lt; the 25<sup>th</sup> percentile per glacier-year
       were filtered out
-      (<xref alt="Figure 5" rid="fig-loess">Figure 5</xref>).</p>
+      (<xref alt="Figure 6" rid="fig-loess">Figure 6</xref>).</p>
       <fig id="fig-loess">
-        <caption><p>Figure 5: Graphical representation of the glacier
+        <caption><p>Figure 6: Graphical representation of the glacier
         area ratio, glacier observation filtering process for
         Mittivakkat glacier, 2024. A loess smoothing function (black
-        line) is fit to the dataset. Glacier observations with a model
-        residual &lt; the 25<sup>th</sup> percentile are removed (open
-        red circles). All other datapoints are retained (green
-        points).</p></caption>
+        line) is fit to the full dataset. Glacier observations with a
+        model residual &lt; the 25<sup>th</sup> percentile are removed
+        (open red circles). All other datapoints are retained for
+        further analysis (green points).</p></caption>
         <graphic mimetype="image" mime-subtype="png" xlink:href="images/Mitt_2024_FAR_filter.png" />
       </fig>
       <p>Several additional simple filters were applied to the transient
@@ -418,7 +431,8 @@ Natural Sciences</institution>
       After all other filters were applied, the number of remaining
       quality glacier observations were counted for each glacier year.
       Glacier years which did not have at least 9 quality observations
-      were removed.</p>
+      were removed (see
+      <xref alt="Section 1.4" rid="sec-observation-density">Section 1.4</xref>).</p>
       <fig id="tbl-filters">
         <caption><p>Table 2: Quality control filters applied to the
         transient AAR dataset.</p></caption>
@@ -434,7 +448,7 @@ Natural Sciences</institution>
             <tbody>
               <tr>
                 <td align="left">cloud cover</td>
-                <td align="left">&lt; 80%</td>
+                <td align="left">&lt; 20%</td>
                 <td align="left"><inline-formula><alternatives>
                 <tex-math><![CDATA[\frac{cloud\:area}{RGI\:area}]]></tex-math>
                 <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mfrac><mml:mrow><mml:mi>c</mml:mi><mml:mi>l</mml:mi><mml:mi>o</mml:mi><mml:mi>u</mml:mi><mml:mi>d</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>a</mml:mi></mml:mrow><mml:mrow><mml:mi>R</mml:mi><mml:mi>G</mml:mi><mml:mi>I</mml:mi><mml:mspace width="0.222em"></mml:mspace><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>a</mml:mi></mml:mrow></mml:mfrac></mml:math></alternatives></inline-formula></td>
@@ -476,28 +490,24 @@ Natural Sciences</institution>
       <title>1.3.2 Annual AAR determination</title>
       <p>From this filtered transient AAR dataset, the annual
       (end-of-season) AAR was identified as the minimum remaining
-      transient AAR value (hereafter, AAR is synonymous with annual
-      AAR). All late season glacier observations occurring after the AAR
-      date were filtered, and the number of remaining glacier
-      observations during the abblation period were counted. If a
-      glacier-year had at least 9 quality observations during the
-      ablation period
-      (<xref alt="Section 1.4" rid="sec-observation-density">Section 1.4</xref>),
-      then the AAR was considered valid, and the data was saved to a
-      separate intermediate data file. In total 37,036 glacier-years had
-      quality AAR data.</p>
+      transient AAR value. (Hereafter, AAR is synonymous with annual
+      AAR, transient AAR and <inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{AAR}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+      will be explicitly identified as appropriate.) After filtering
+      37,036 glacier-years had quality AAR data.</p>
     </sec>
     <sec id="sec-mean-aar">
       <title>1.3.3 Mean AAR</title>
-      <p>The mean AAR (<inline-formula><alternatives>
+      <p>The glacier-specific mean AAR (<inline-formula><alternatives>
       <tex-math><![CDATA[\overline{AAR}]]></tex-math>
       <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>)
       was calculated as the arithmetic mean of AAR for glaciers which
-      had at least 5 years of quality data.
-      <inline-formula><alternatives>
+      had at least 5 years of AAR data. In total, 3,679 glaciers had
+      quality <inline-formula><alternatives>
       <tex-math><![CDATA[\overline{AAR}]]></tex-math>
       <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
-      was saved to a separate data file with 3,679 glaciers.</p>
+      data.</p>
     </sec>
   </sec>
   <sec id="sec-observation-density">
@@ -510,16 +520,17 @@ Natural Sciences</institution>
     glacier observations (post filtering). For each glacier a series of
     subseting experiments was performed where n randomly selected points
     were subset from the glacier-year data. Using the randomly subset
-    data, the assumed AAR was selected and compared against the actual
-    (known) AAR from the full dataset. The n observations tested were 3,
-    5, 7, 9, 12, 15, 20, 25, 30, and each experiment was repeated 100
-    times, for a total of 18,900 simulations
-    <xref alt="Figure 6" rid="fig-obs-dense">Figure 6</xref>. Based on
+    data, the assessed AAR was selected from the artificially limited
+    dataset and compared against the actual (known) AAR obtained from
+    the full dataset. The n observations tested were 3, 5, 7, 9, 12, 15,
+    20, 25, 30, and each experiment was repeated 100 times, for a total
+    of 18,900 simulations
+    <xref alt="Figure 7" rid="fig-obs-dense">Figure 7</xref>. Based on
     the resultus of these simulations, at least 9 quality observations
     per year are needed to reliably identify the AAR
     <xref alt="Table 3" rid="tbl-obs-dense">Table 3</xref>.</p>
     <fig id="fig-obs-dense">
-      <caption><p>Figure 6: Sensitivity of the AAR to the number of
+      <caption><p>Figure 7: Sensitivity of the AAR to the number of
       quality observations in the dataset. Observations are randomly
       subset from a selection of well observed glacier-years with at
       least 30 quality observations. Violin plots with jittered
@@ -593,9 +604,9 @@ Natural Sciences</institution>
   </sec>
   <sec id="sec-aar0">
     <title>1.5 Equilibrium AAR and Committed Area Loss</title>
-    <p>Equilibrium AAR (AAR<sub>0</sub>) values were given by Yang et
-    al.
-    (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>).
+    <p>Equilibrium AAR (AAR<sub>0</sub>) values were estimated after
+    Kern and László
+    (<xref alt="2010" rid="ref-Kern_László_2010" ref-type="bibr">2010</xref>).
     Disequalibrium (<inline-formula><alternatives>
     <tex-math><![CDATA[\alpha]]></tex-math>
     <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>α</mml:mi></mml:math></alternatives></inline-formula>)
@@ -607,24 +618,31 @@ Natural Sciences</institution>
     The <inline-formula><alternatives>
     <tex-math><![CDATA[\Delta]]></tex-math>
     <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
-    values varried considerably by region, with the central east (CE),
-    north east (NE), south west (SW) all showing positive committed area
-    change (i.e., committed growth). Furthermore, while the resulting
+    values varried considerably by region, with the north (NO) and
+    north east (NE) having the most committed area loss. However, the
+    NO, north west (NW), and central west (CW) have the most committed
+    area loss relative to their current glaciated extent, at 34%, 27%
+    and 24% respectively. Furthermore, while the resulting
     <inline-formula><alternatives>
     <tex-math><![CDATA[\Delta]]></tex-math>
     <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
-    values are approximately centered on 0 (median = -0.26
+    values are approximately centered on 0 (median = -0.3
     km<sup>2</sup>) the distribution is not normal
-    (<xref alt="Figure 7" rid="fig-delta-a-dist">Figure 7</xref>).
-    Rather, the distribution is highly leptokurtic, with a slight
-    positive skew. This indicates that, while most glaciers are near
-    their predicted equilibrium value, the distribution is highly
-    dominated by outliers on either side.</p>
+    (<xref alt="Figure 8" rid="fig-delta-a-dist">Figure 8</xref>).
+    Rather, the distribution is highly leptokurtic (kurtosis = 90.3),
+    with a negative skew (skew = -5.2). This indicates that, while most
+    glaciers contribute relatively little to Greenland’s cumulative
+    committed retreat, a few large glaciers that are substantially out
+    of balance with current climate conditions are contributing the
+    majority of the projected area loss. Similarly, a relatively few
+    large glaciers are dominating the <inline-formula><alternatives>
+    <tex-math><![CDATA[\Delta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+    calculations on the positive side, particularly in the
+    central east (CE).</p>
     <fig id="fig-delta-a-dist">
-      <caption><p>Figure 7: The highly leptokurtic distribution of
-      committed area change calculated using AAR<sub>0</sub> values by
-      Yang et al.
-      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)</p></caption>
+      <caption><p>Figure 8: The negatively skewed and highly leptokurtic
+      distribution of committed area change.</p></caption>
       <graphic mimetype="image" mime-subtype="png" xlink:href="images/delta_A_dist.png" />
     </fig>
     <sec id="sec-delta-a-sensitivity">
@@ -635,50 +653,67 @@ Natural Sciences</institution>
       results we conducted a sensitivity analysis for a range of
       plausible AAR<sub>0</sub> values, from 0.5 to 0.8, for each region
       individually as well as for Greenland as a whole
-      (<xref alt="Figure 8" rid="fig-delta-a-sensitivity">Figure 8</xref>).
+      (<xref alt="Figure 9" rid="fig-delta-a-sensitivity">Figure 9</xref>).
       While most regions exhibited relatively low sensitivity to
       AAR<sub>0</sub> values, the NE and CE were both highly sensitive
-      to a wide range of AAR<sub>0</sub> values. Additionally, the SW
-      was moderatly sensitive to AAR<sub>0</sub> values between 0.5 and
-      0.6. Importantly, these are also the three regions which indicate
-      potential glacier growth. Therefore, small differences in either
-      <inline-formula><alternatives>
+      to a wide range of AAR<sub>0</sub> values. Therefore, small
+      differences in either <inline-formula><alternatives>
       <tex-math><![CDATA[\overline{AAR}]]></tex-math>
       <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
-      or AAR<sub>0</sub> in any of these regions would result in
-      relatively large changes to <inline-formula><alternatives>
+      or AAR<sub>0</sub> in these two regions would result in relatively
+      large changes to <inline-formula><alternatives>
       <tex-math><![CDATA[\Delta]]></tex-math>
-      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A.
-      Additionally, while the CE continues to show positive
-      <inline-formula><alternatives>
-      <tex-math><![CDATA[\Delta]]></tex-math>
-      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
-      values up to AAR<sub>0</sub> ≈ 0.68, the
-      <inline-formula><alternatives>
-      <tex-math><![CDATA[\Delta]]></tex-math>
-      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
-      for the NE crossess 0 at AAR<sub>0</sub> ≈ 0.58 a difference of
-      just 0.02 relative to the Yang et al.
-      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
-      data.</p>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A.</p>
       <fig id="fig-delta-a-sensitivity">
-        <caption><p>Figure 8: Sensitivity of committed area loss to a
+        <caption><p>Figure 9: Sensitivity of committed area loss to a
         range of plausible equilibrium AAR values. Thick lines color
         coded by region, thin black line for all Greenland. Steeper
         lines indicate greater sensitivity.</p></caption>
         <graphic mimetype="image" mime-subtype="png" xlink:href="images/delta_A_sensitivity.png" />
       </fig>
     </sec>
-    <sec id="review-of-yang-et-al.-methods-and-accuracy-within-greenland">
-      <title>1.5.2 Review of Yang et al. Methods and Accuracy within
-      Greenland</title>
-      <p>While the Yang et al.
+    <sec id="review-of-yang-et-al.-aar0-estimates">
+      <title>1.5.2 Review of Yang et al. AAR<sub>0</sub>
+      Estimates</title>
+      <p>An alternative and recently published approach to
+      AAR<sub>0</sub> estimates offered by Kern and László
+      (<xref alt="2010" rid="ref-Kern_László_2010" ref-type="bibr">2010</xref>)
+      is the glacier-specific AAR<sub>0</sub> values published by Yang
+      et al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>).
+      While the Yang et al.
       (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
       data is laudible, and one of the only glacier-specific
       AAR<sub>0</sub> datasets available, it may not be well suited for
-      use in Greenland. For example, consider this large glacier in the
-      north west (NW) (RGI2000-v7.0-G-05-00250;
-      <xref alt="Figure 9" rid="fig-glacier">Figure 9</xref>). This
+      use in Greenland. While we initially favored the Yang et al.
+      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
+      estimates, the resultant <inline-formula><alternatives>
+      <tex-math><![CDATA[\alpha]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>α</mml:mi></mml:math></alternatives></inline-formula>
+      and <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+      calculations did not pass scruitany. The cumulative Greenland
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+      utilizing the Yang et al. data was a positive glacier area change
+      of ~3,000 km<sup>2</sup>, with many glaciers showing
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\alpha]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>α</mml:mi></mml:math></alternatives></inline-formula>
+      values &gt; 1. Upon further investigation, we found that our
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{AAR}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+      classification and calculation methods were accurate, the
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\alpha]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>α</mml:mi></mml:math></alternatives></inline-formula>
+      &gt; 1 calculations were largely being driven by implausably small
+      AAR<sub>0</sub> values. For example, consider this large glacier
+      in the NW (RGI2000-v7.0-G-05-00250;
+      <xref alt="Figure 10" rid="fig-glacier">Figure 10</xref>). This
       glacier is the most extreme example of a positive
       <inline-formula><alternatives>
       <tex-math><![CDATA[\Delta]]></tex-math>
@@ -695,53 +730,60 @@ Natural Sciences</institution>
       <inline-formula><alternatives>
       <tex-math><![CDATA[\Delta]]></tex-math>
       <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
-      glaciers in our data, 7 of them have AAR<sub>0</sub> values &lt;
-      0.5 (the losest tested theoretical AAR<sub>0</sub> value in our
-      sensitivity analysis). Global paleio-climate AAR<sub>0</sub>
-      estimates are typically estimated as 0.58, therefore, values below
-      0.5 are quite low. Additionally, ice caps typically have larger
-      AAR<sub>0</sub> values, relative to equivalent mountain glaciers
+      glaciers in our data (as calculated with the Yang et al. data), 7
+      of them have AAR<sub>0</sub> values &lt; 0.5 (the losest tested
+      theoretical AAR<sub>0</sub> value in our sensitivity analysis).
+      Global paleio-climate AAR<sub>0</sub> estimates are typically
+      estimated as 0.58, therefore, values below 0.5 are quite low.
+      Additionally, ice caps, as seen in our representative example,
+      typically have larger AAR<sub>0</sub> values, relative to
+      equivalent mountain glaciers
       (<xref alt="Yang et al. 2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">Yang
       et al. 2026</xref>;
       <xref alt="Kern and László 2010" rid="ref-Kern_László_2010" ref-type="bibr">Kern
       and László 2010</xref>).</p>
       <fig id="fig-glacier">
-        <caption><p>Figure 9: Glacier RGI2000-v7.0-G-05-00250,
+        <caption><p>Figure 10: Glacier RGI2000-v7.0-G-05-00250,
         07/16/2022, located in the NW, part of a larger ice cap.
         <inline-formula><alternatives>
         <tex-math><![CDATA[\overline{AAR}]]></tex-math>
         <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>A</mml:mi><mml:mi>A</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
-        = 0.63, presumed AAR<sub>0</sub> = 0.45, shown here at the end
-        of the 2022 ablation season, AAR<sub>2022</sub> = 0.45 (the
+        = 0.63, AAR<sub>0</sub> (Yang et al.) = 0.45, shown here at the
+        end of the 2022 ablation season, AAR<sub>2022</sub> = 0.45 (the
         lowest observed annual AAR in the dataset).</p></caption>
         <graphic mimetype="image" mime-subtype="png" xlink:href="images/Yang_example.png" />
       </fig>
       <p>These results call into question the accuracy of the Yang et
       al.
       (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
-      data within Greenland. Alternate estimates by Kern and László
+      data within Greenland. Therefore, alternate AAR<sub>0</sub>
+      estimates were identified, and the Kern and László
       (<xref alt="2010" rid="ref-Kern_László_2010" ref-type="bibr">2010</xref>)
-      call for AAR<sub>0</sub> = 0.64 for glaciers &gt; 4
-      km<sup>2</sup>, which would alter the
+      appeared to be a better fit for our study area. The updated
       <inline-formula><alternatives>
       <tex-math><![CDATA[\Delta]]></tex-math>
       <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
-      of our representative glacier from strongly positive to in
-      equilibrium. However, the Kern and László
-      (<xref alt="2010" rid="ref-Kern_László_2010" ref-type="bibr">2010</xref>)
-      estimates predate Yang et al.
-      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>),
-      and only considered glaciers up to ~40 km<sup>2</sup>, 6 times
-      smaller than our representative glacier. As a result, it is not
-      clear if the Yang et al.
-      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
-      is any more or less accurate than alternate AAR<sub>0</sub>
-      estimates. Therefore, we present <inline-formula><alternatives>
+      calculations using the Kern and László data shift cumulative
+      Greenland committed area loss into negative teratory, matching
+      well understood and widely observed global trends of glacial
+      retreat, and <inline-formula><alternatives>
       <tex-math><![CDATA[\Delta]]></tex-math>
       <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
-      values preliminaraly using Yang et al.
-      (<xref alt="2026" rid="ref-Yang_Mackintosh_2026" ref-type="bibr">2026</xref>)
-      AAR<sub>0</sub> estimates.</p>
+      forecasts are roughly equivalent (equal order of magnitude) with
+      actualized (observed) loss from 2000–2025. Overall, the Kern and
+      László
+      (<xref alt="2010" rid="ref-Kern_László_2010" ref-type="bibr">2010</xref>)
+      estimates provide much more defensible results of projected area
+      change within Greenland, however, their AAR<sub>0</sub> estimates
+      only considered glaciers up to ~40 km<sup>2</sup>, ~7 times
+      smaller than our largest glacier. Therefore, we present
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A
+      values preliminaraly and caution against granular analysis of
+      glacier-specific <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula>A.</p>
     </sec>
   </sec>
 </sec>
